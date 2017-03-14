@@ -3,20 +3,33 @@
 #include "CoordinateSystem.h"
 #include <cmath>
 
+/*
+Parameter:
+	double longitude_x - 
+	double latitude_y - 
+	double altitude_z -
+	bool Cartesian -
 
+Description:
+	This Member-Fucntion 
+*/
 
-CoordinateSystem::CoordinateSystem(double longitude, double latitude, double altitude)
+CoordinateSystem::CoordinateSystem(double longitude_x, double latitude_y, double altitude_z,bool Cartesian)
 {
+	if (Cartesian) {
+		double earthRadius = 6370000;
 
-	double earthRadius = 6370000;
+		longitude_x = longitude_x * M_PI / 180.0;
+		latitude_y = latitude_y * M_PI / 180.0;
 
-	longitude = longitude * M_PI / 180.0;
-	latitude = latitude * M_PI / 180.0;
-
-	this->x = (altitude + earthRadius)*cos(latitude)*sin(longitude);
-	this->y = (altitude + earthRadius)*sin(latitude);
-	this->z = (altitude + earthRadius)*cos(latitude)*cos(longitude);
-
+		this->x = (altitude_z + earthRadius)*cos(latitude_y)*sin(longitude_x);
+		this->y = (altitude_z + earthRadius)*sin(latitude_y);
+		this->z = (altitude_z + earthRadius)*cos(latitude_y)*cos(longitude_x);
+	}else {
+		this->x = longitude_x;
+		this->y = latitude_y;
+		this->z = altitude_z;
+	}
 }
 
 

@@ -111,10 +111,12 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="CoordinateSystem.cpp" />
-    <ClCompile Include="mian.cpp" />
+    <ClCompile Include="ElectricVehicle.cpp" />
+    <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateSystem.h" />
+    <ClInclude Include="ElectricVehicle.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
