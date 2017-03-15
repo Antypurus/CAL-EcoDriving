@@ -113,11 +113,13 @@
     <ClCompile Include="CoordinateSystem.cpp" />
     <ClCompile Include="ElectricVehicle.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="OSMParser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateSystem.h" />
     <ClInclude Include="ElectricVehicle.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />
+    <ClInclude Include="OSMParser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
