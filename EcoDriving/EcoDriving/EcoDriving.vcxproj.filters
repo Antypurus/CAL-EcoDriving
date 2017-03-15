@@ -32,5 +32,8 @@
     <ClInclude Include="ElectricVehicle.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MATH_CONSTANTS_MACROS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
