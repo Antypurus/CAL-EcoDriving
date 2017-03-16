@@ -16,6 +16,13 @@ namespace EcoDriving {
 			uint64_t getID()const{
 				return nodeID;
 			}
+
+			inline bool operator==(const OSMNode &node)const {
+				if (this->nodeID == node.getID()) {
+					return true;
+				}
+				return false;
+			}
 		};
 
 
@@ -29,6 +36,13 @@ namespace EcoDriving {
 		public:
 			uint64_t getID()const{
 				return wayID;
+			}
+
+			inline bool operator==(const OSMWays &way)const {
+				if (this->wayID == way.getID()) {
+					return true;
+				}
+				return false;
 			}
 		};
 
@@ -48,6 +62,13 @@ namespace EcoDriving {
 			}
 			uint64_t getDestID()const {
 				return destinationNodeID;
+			}
+
+			bool operator==(const OSMConections &conect)const {
+				if (this->wayID == conect.getID()) {
+					return true;
+				}
+				return false;
 			}
 		};
 
@@ -71,9 +92,10 @@ namespace std {
 	template<>
 	struct hash<EcoDriving::Parser::OSMNode> {
 
-		size_t operator()(EcoDriving::Parser::OSMNode const &node) const noexcept {
+		inline size_t operator()(EcoDriving::Parser::OSMNode const &node) const noexcept {
 			return node.getID();
 		}
+
 	};
 
 }
