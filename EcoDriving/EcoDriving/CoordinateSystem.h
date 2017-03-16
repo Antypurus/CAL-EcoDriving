@@ -2,6 +2,9 @@
 
 namespace EcoDriving {
 	namespace EcoCoordinate {
+		/*
+		this class represents a coordinate system that contains at least a set of x,y and z cartesian coordinates , it might also have polar coordinates
+		*/
 		class CoordinateSystem
 		{
 		public:

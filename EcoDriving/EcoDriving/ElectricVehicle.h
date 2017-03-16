@@ -5,7 +5,9 @@
 
 namespace EcoDriving {
 	namespace EcoVehicle {
-
+		/*
+			This class represents an electrical vehicle to used to obtain values in the graph calculations
+		*/
 		class ElectricVehicle
 		{
 		private:
