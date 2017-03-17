@@ -16,13 +16,14 @@ namespace EcoDriving {
 			uint64_t getID()const{
 				return nodeID;
 			}
-
 			inline bool operator==(const OSMNode &node)const {
 				if (this->nodeID == node.getID()) {
 					return true;
 				}
 				return false;
 			}
+		public:
+			OSMNode(uint64_t ID, double latitude, double longitude, double altitude);
 		};
 
 
@@ -37,13 +38,14 @@ namespace EcoDriving {
 			uint64_t getID()const{
 				return wayID;
 			}
-
 			inline bool operator==(const OSMWays &way)const {
 				if (this->wayID == way.getID()) {
 					return true;
 				}
 				return false;
 			}
+		public:
+			OSMWays(uint64_t ID, bool twiWay, std::string = "");
 		};
 
 		void OSMWaysParse(std::unordered_set<OSMWays> &hash_table, std::string filename);
@@ -63,13 +65,14 @@ namespace EcoDriving {
 			uint64_t getDestID()const {
 				return destinationNodeID;
 			}
-
 			bool operator==(const OSMConections &conect)const {
 				if (this->wayID == conect.getID()) {
 					return true;
 				}
 				return false;
 			}
+		public:
+			OSMConections(uint64_t ID, uint64_t srcID, uint64_t dstID);
 		};
 
 		void OSMConectionsParse(std::unordered_set<OSMConections> &hash_table, std::string filename);
@@ -82,11 +85,15 @@ namespace EcoDriving {
 				std::unordered_set<Parser::OSMNode> nodes;
 				std::unordered_set<Parser::OSMWays> ways;
 				std::unordered_set<Parser::OSMConections> conections;
+			public:
+				OSMParserLinker(std::unordered_set<Parser::OSMNode> nodes, std::unordered_set<Parser::OSMWays> ways, std::unordered_set<Parser::OSMConections> conections);
 			};
 		}
 	
 }
 
+
+//hashes
 namespace std {
 
 	template<>
@@ -94,6 +101,24 @@ namespace std {
 
 		inline size_t operator()(EcoDriving::Parser::OSMNode const &node) const noexcept {
 			return node.getID();
+		}
+
+	};
+
+	template<>
+	struct hash<EcoDriving::Parser::OSMWays> {
+
+		inline size_t operator()(EcoDriving::Parser::OSMWays const &way)const noexcept {
+			return way.getID();
+		}
+
+	};
+
+	template<>
+	struct hash<EcoDriving::Parser::OSMConections> {
+
+		inline size_t operator()(EcoDriving::Parser::OSMConections const &conect) const noexcept {
+			return conect.getID();
 		}
 
 	};
