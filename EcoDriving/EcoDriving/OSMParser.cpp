@@ -2,6 +2,9 @@
 #include<fstream>
 #include<string>
 #include<iostream>
+#include<sstream>
+
+using namespace std;
 
 namespace EcoDriving {
 	namespace Parsers {
@@ -97,28 +100,33 @@ namespace EcoDriving {
 			std::ifstream file(filename);
 
 			if (file.is_open()) {
-				help = "";
-				std::getline(file, help, ';');
-				
-				ID = std::stoi(help);
-				
-				std::getline(file, help, ';');
+				while (!file.eof()) {
+					double latitude=0, longitude=0, altitude = 0;
+					size_t nodeID=0;
 
-				longitude = std::stod(help);
-				help = "";
-				std::getline(file, help, ';');
+					help = "";
 
-				latitude = std::stod(help);
-				help = "";
-				std::getline(file, help, ';');//ignore the components in radians
-				std::getline(file, help, ';');//ignore the components in radians
-				help = "";
-				altitude = 0;
-				
-				EcoDriving::Parsers::Node send(latitude, longitude, altitude, ID);
+					std::getline(file, help);
 
-				//nodeTable.insert(std::make_pair(send.getNodeID(), send));
+					stringstream helper(help);
+					stringstream help2;
 
+					std::getline(helper, help, ';');
+					help2 << help;
+					help2 >> nodeID;
+
+					std::getline(helper, help, ';');
+					help2 << help;
+					help2 >> latitude;
+
+					std::getline(helper, help, ';');
+					help2 << help;
+					help2 >> longitude;
+
+					EcoDriving::Parsers::Node send(latitude, longitude, altitude, nodeID);
+
+					nodeTable.insert(std::make_pair(send.getNodeID(), send));
+				}
 			}
 			else {
 				std::cout << "There Was An Issue Opening The Requested File" << std::endl;

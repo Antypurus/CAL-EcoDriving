@@ -18,6 +18,7 @@ namespace EcoDriving {
 			size_t nodeID;
 		public:
 			Node(double latitude, double longitude, double altitude, size_t nodeID);
+			Node() {};
 			size_t getNodeID()const;
 			double getAltitude()const;
 			double getLongitude()const;
