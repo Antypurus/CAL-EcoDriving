@@ -132,6 +132,10 @@ namespace EcoDriving {
 				std::cout << "There Was An Issue Opening The Requested File" << std::endl;
 			}
 			file.close();
+
+			void WayParse(std::unordered_set<EcoDriving::Parsers::Way> &wayTable, std::string filename) {
+
+			}
 		}
 	}
 }

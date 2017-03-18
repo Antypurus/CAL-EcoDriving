@@ -68,8 +68,8 @@ namespace EcoDriving {
 		};
 
 		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
-		void WayParser(std::unordered_set<EcoDriving::Parsers::Way> &nodeTable, std::string filename);
-		void ConectParser(std::unordered_set<EcoDriving::Parsers::Conect> &nodeTable, std::string filename);
+		void WayParser(std::unordered_set<EcoDriving::Parsers::Way> &wayTable, std::string filename);
+		void ConectParser(std::unordered_set<EcoDriving::Parsers::Conect> &conTable, std::string filename);
 	
 	}
 }
