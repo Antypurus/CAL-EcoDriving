@@ -7,7 +7,7 @@ namespace EcoDriving {
 }
 
 namespace EcoDriving {
-	namespace ParserLinker {
+	namespace Linker {
 
 	}
 }

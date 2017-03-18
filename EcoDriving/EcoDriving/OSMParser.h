@@ -1,10 +1,14 @@
-#pragma once
+
+#ifndef OSMPARSER_H
+#define OSMPARSER_H
 
 #include<string>
 #include<unordered_set>
 
+
 namespace EcoDriving {
 	namespace Parsers {
+
 		class Node {
 		private:
 			double latitude;
@@ -24,7 +28,7 @@ namespace EcoDriving {
 		private:
 			std::string name;
 			size_t wayID;
-			bool twoWay=false;
+			bool twoWay = false;
 		public:
 			Way(size_t wayID, std::string name, bool isTwoWay);
 			std::string getName()const;
@@ -46,16 +50,25 @@ namespace EcoDriving {
 			bool operator==(const Conect &conect)const;
 		};
 
-		void NodeParser(std::unordered_set<Node> &nodeTable,std::string filename);
-		void WayParser(std::unordered_set<Way> &nodeTable, std::string filename);
-		void ConectParser(std::unordered_set<Conect> &nodeTable, std::string filename);
 	}
+
 }
 
+#include"Hashes.h"
 namespace EcoDriving {
-	namespace ParserLinker {
-		class OSMParserLinker {
+	namespace Linker {
 
+		class Linker {
+		private:
+			std::unordered_set<Parsers::Node> nodes;
+			std::unordered_set<Parsers::Way> ways;
+			std::unordered_set<Parsers::Conect> conections;
 		};
+
+		void NodeParser(std::unordered_set<EcoDriving::Parsers::Node> &nodeTable, std::string filename);
+		void WayParser(std::unordered_set<EcoDriving::Parsers::Way> &nodeTable, std::string filename);
+		void ConectParser(std::unordered_set<EcoDriving::Parsers::Conect> &nodeTable, std::string filename);
+	
 	}
 }
+#endif // OSMPARSER_H
