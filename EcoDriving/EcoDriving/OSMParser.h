@@ -1,127 +1,61 @@
 #pragma once
 
-#include<stdint.h>
+#include<string>
 #include<unordered_set>
 
 namespace EcoDriving {
-	namespace Parser {
-
-		class OSMNode {
+	namespace Parsers {
+		class Node {
 		private:
 			double latitude;
 			double longitude;
 			double altitude;
-			uint64_t nodeID;
+			size_t nodeID;
 		public:
-			uint64_t getID()const{
-				return nodeID;
-			}
-			inline bool operator==(const OSMNode &node)const {
-				if (this->nodeID == node.getID()) {
-					return true;
-				}
-				return false;
-			}
-		public:
-			OSMNode(uint64_t ID, double latitude, double longitude, double altitude);
+			Node(double latitude, double longitude, double altitude, size_t nodeID);
+			size_t getNodeID()const;
+			double getAltitude()const;
+			double getLongitude()const;
+			double getLatitude()const;
+			bool operator==(const Node &node)const;
 		};
 
-
-		void OSMNodeParser(std::unordered_set<OSMNode> &hash_table, std::string filename);
-
-		class OSMWays {
+		class Way {
 		private:
-			uint64_t wayID;
-			std::string wayName = "";
-			bool twoWay = false;
+			std::string name;
+			size_t wayID;
+			bool twoWay=false;
 		public:
-			uint64_t getID()const{
-				return wayID;
-			}
-			inline bool operator==(const OSMWays &way)const {
-				if (this->wayID == way.getID()) {
-					return true;
-				}
-				return false;
-			}
-		public:
-			OSMWays(uint64_t ID, bool twiWay, std::string = "");
+			Way(size_t wayID, std::string name, bool isTwoWay);
+			std::string getName()const;
+			size_t getWayID()const;
+			bool isTwoWay()const;
+			bool operator==(const Way &way)const;
 		};
 
-		void OSMWaysParse(std::unordered_set<OSMWays> &hash_table, std::string filename);
-
-		class OSMConections {
+		class Conect {
 		private:
-			uint64_t wayID;
-			uint64_t sourceNodeID;
-			uint64_t destinationNodeID;
+			size_t wayID;
+			size_t srcID;
+			size_t dstID;
 		public:
-			uint64_t getID()const {
-				return wayID;
-			}
-			uint64_t getSrcID()const {
-				return sourceNodeID;
-			}
-			uint64_t getDestID()const {
-				return destinationNodeID;
-			}
-			bool operator==(const OSMConections &conect)const {
-				if (this->wayID == conect.getID()) {
-					return true;
-				}
-				return false;
-			}
-		public:
-			OSMConections(uint64_t ID, uint64_t srcID, uint64_t dstID);
+			Conect(size_t wayID, size_t srcID, size_t dstID);
+			size_t getWayID()const;
+			size_t getSrcID()const;
+			size_t getDstID()const;
+			bool operator==(const Conect &conect)const;
 		};
 
-		void OSMConectionsParse(std::unordered_set<OSMConections> &hash_table, std::string filename);
+		void NodeParser(std::unordered_set<Node> &nodeTable,std::string filename);
+		void WayParser(std::unordered_set<Way> &nodeTable, std::string filename);
+		void ConectParser(std::unordered_set<Conect> &nodeTable, std::string filename);
 	}
-
-		namespace Linker {
-
-			class OSMParserLinker {
-			private:
-				std::unordered_set<Parser::OSMNode> nodes;
-				std::unordered_set<Parser::OSMWays> ways;
-				std::unordered_set<Parser::OSMConections> conections;
-			public:
-				OSMParserLinker(std::unordered_set<Parser::OSMNode> nodes, std::unordered_set<Parser::OSMWays> ways, std::unordered_set<Parser::OSMConections> conections);
-			};
-		}
-	
 }
 
+namespace EcoDriving {
+	namespace ParserLinker {
+		class OSMParserLinker {
 
-//hashes
-namespace std {
-
-	template<>
-	struct hash<EcoDriving::Parser::OSMNode> {
-
-		inline size_t operator()(EcoDriving::Parser::OSMNode const &node) const noexcept {
-			return node.getID();
-		}
-
-	};
-
-	template<>
-	struct hash<EcoDriving::Parser::OSMWays> {
-
-		inline size_t operator()(EcoDriving::Parser::OSMWays const &way)const noexcept {
-			return way.getID();
-		}
-
-	};
-
-	template<>
-	struct hash<EcoDriving::Parser::OSMConections> {
-
-		inline size_t operator()(EcoDriving::Parser::OSMConections const &conect) const noexcept {
-			return conect.getID();
-		}
-
-	};
-
+		};
+	}
 }
-

@@ -41,5 +41,8 @@
     <ClInclude Include="OSMParser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="Hashes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

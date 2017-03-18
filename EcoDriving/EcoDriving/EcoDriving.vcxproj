@@ -118,6 +118,7 @@
   <ItemGroup>
     <ClInclude Include="CoordinateSystem.h" />
     <ClInclude Include="ElectricVehicle.h" />
+    <ClInclude Include="Hashes.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />
     <ClInclude Include="OSMParser.h" />
   </ItemGroup>
