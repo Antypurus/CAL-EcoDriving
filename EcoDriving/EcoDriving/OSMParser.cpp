@@ -1,4 +1,7 @@
 #include"OSMParser.h"
+#include<fstream>
+#include<string>
+#include<iostream>
 
 namespace EcoDriving {
 	namespace Parsers {
@@ -83,6 +86,44 @@ namespace EcoDriving {
 
 namespace EcoDriving {
 	namespace Linker {
+		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node>& nodeTable, std::string filename){
+			
+			nodeTable.clear();
 
+			double altitude, longitude, latitude;
+			size_t ID;
+
+			std::string help;
+			std::ifstream file(filename);
+
+			if (file.is_open()) {
+				help = "";
+				std::getline(file, help, ';');
+				
+				ID = std::stoi(help);
+				
+				std::getline(file, help, ';');
+
+				longitude = std::stod(help);
+				help = "";
+				std::getline(file, help, ';');
+
+				latitude = std::stod(help);
+				help = "";
+				std::getline(file, help, ';');//ignore the components in radians
+				std::getline(file, help, ';');//ignore the components in radians
+				help = "";
+				altitude = 0;
+				
+				EcoDriving::Parsers::Node send(latitude, longitude, altitude, ID);
+
+				//nodeTable.insert(std::make_pair(send.getNodeID(), send));
+
+			}
+			else {
+				std::cout << "There Was An Issue Opening The Requested File" << std::endl;
+			}
+			file.close();
+		}
 	}
 }

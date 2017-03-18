@@ -4,6 +4,7 @@
 
 #include<string>
 #include<unordered_set>
+#include<unordered_map>
 
 
 namespace EcoDriving {
@@ -60,12 +61,12 @@ namespace EcoDriving {
 
 		class Linker {
 		private:
-			std::unordered_set<Parsers::Node> nodes;
-			std::unordered_set<Parsers::Way> ways;
-			std::unordered_set<Parsers::Conect> conections;
+			std::unordered_map<size_t,Parsers::Node> nodes;
+			std::unordered_map<size_t,Parsers::Way> ways;
+			std::unordered_map<size_t,Parsers::Conect> conections;
 		};
 
-		void NodeParser(std::unordered_set<EcoDriving::Parsers::Node> &nodeTable, std::string filename);
+		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
 		void WayParser(std::unordered_set<EcoDriving::Parsers::Way> &nodeTable, std::string filename);
 		void ConectParser(std::unordered_set<EcoDriving::Parsers::Conect> &nodeTable, std::string filename);
 	
