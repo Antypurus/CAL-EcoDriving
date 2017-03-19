@@ -5,9 +5,9 @@
 
 void main(void) {
 	
-	std::unordered_map<size_t, EcoDriving::Parsers::Way>nodes;
+	std::unordered_map<size_t, EcoDriving::Parsers::Conect>nodes;
 
-	EcoDriving::Linker::WayParser(nodes, "map1.txt");
+	EcoDriving::Linker::ConectParser(nodes, "map2.txt");
 	
 	system("pause");
 

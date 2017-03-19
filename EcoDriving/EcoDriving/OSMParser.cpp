@@ -174,5 +174,43 @@ namespace EcoDriving {
 			}
 			file.close();
 		}
-	}
+
+		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
+			ifstream file(filename);
+			if (file.is_open()) {
+				while (!file.eof()) {
+					size_t wayID, srcID, dstID;
+					string help;
+					stringstream help1, help2;
+
+					getline(file, help);
+					help1 << help;
+
+					getline(help1, help, ';');
+					help2 << help;
+					help2 >> wayID;
+
+					getline(help1, help, ';');
+					help2 << help;
+					help2 >> srcID;
+
+					getline(help1, help, ';');
+					help2 << help;
+					help2 >> dstID;
+
+					EcoDriving::Parsers::Conect send(wayID, srcID, dstID);
+
+					conTable.insert(std::make_pair(wayID, send));
+				}
+			}
+			else {
+				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+			}
+			file.close();
+		}
+
+		Linker::Linker()
+		{
+		}
+}
 }

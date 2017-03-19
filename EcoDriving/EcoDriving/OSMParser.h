@@ -61,10 +61,12 @@ namespace EcoDriving {
 	namespace Linker {
 
 		class Linker {
-		private:
+		public:
 			std::unordered_map<size_t,Parsers::Node> nodes;
 			std::unordered_map<size_t,Parsers::Way> ways;
 			std::unordered_map<size_t,Parsers::Conect> conections;
+
+			Linker();
 		};
 
 		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
