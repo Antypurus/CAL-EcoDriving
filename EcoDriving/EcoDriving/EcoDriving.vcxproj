@@ -121,6 +121,7 @@
     <ClInclude Include="Hashes.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />
     <ClInclude Include="OSMParser.h" />
+    <ClInclude Include="PROJECT_SETTINGS_MACROS.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

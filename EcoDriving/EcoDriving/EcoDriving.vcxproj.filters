@@ -44,5 +44,8 @@
     <ClInclude Include="Hashes.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="PROJECT_SETTINGS_MACROS.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

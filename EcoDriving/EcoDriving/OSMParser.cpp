@@ -5,6 +5,7 @@
 #include<sstream>
 #include<thread>
 #include<unordered_map>
+#include"PROJECT_SETTINGS_MACROS.h"
 
 using namespace std;
 
@@ -132,10 +133,12 @@ namespace EcoDriving {
 			}
 			else {
 				std::cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				file.close();
+				return;
 			}
 			file.close();
 
-			std::cout << "Parsing Of Node Information Is Complete" << std::endl;
+			std::cout << std::endl << "Parsing Of Node Information Is Complete" << std::endl;
 
 		}
 
@@ -175,9 +178,11 @@ namespace EcoDriving {
 			}
 			else {
 				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				file.close();
+				return;
 			}
 			file.close();
-			std::cout << "Parsing Of Way Information Is Complete" << std::endl;
+			std::cout << std::endl << "Parsing Of Way Information Is Complete" << std::endl;
 		}
 
 		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
@@ -210,23 +215,25 @@ namespace EcoDriving {
 			}
 			else {
 				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				file.close();
+				return;
 			}
 			file.close();
-			std::cout << "Parsing Of Node Conections Is Complete" << std::endl;
+			std::cout << std::endl << "Parsing Of Node Conections Is Complete" << std::endl;
 		}
 
 		Linker::Linker() {
-			std::cout << "Parsing Started" << std::endl;
+			std::cout << std::endl << "Parsing Started" << std::endl;
 
-			std::thread nodeParse(NodeParser, this->nodes,"map.txt");
-			std::thread wayParse(WayParser, this->ways, "map1.txt");
-			std::thread conParse(ConectParser, this->conections, "map2.txt");
+			std::thread nodeParse(NodeParser, this->nodes, NODE_FILE);
+			std::thread wayParse(WayParser, this->ways, WAY_FILE);
+			std::thread conParse(ConectParser, this->conections, NODE_CONECTIONS_FILE);
 
 			nodeParse.join();
 			wayParse.join();
 			conParse.join();
 
-			std::cout << "Parsing  Finished" << std::endl;
+			std::cout << std::endl << "Parsing  Finished" << std::endl;
 		}
 	}
 }
