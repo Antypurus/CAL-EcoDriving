@@ -3,6 +3,8 @@
 #include<string>
 #include<iostream>
 #include<sstream>
+#include<thread>
+#include<unordered_map>
 
 using namespace std;
 
@@ -133,6 +135,8 @@ namespace EcoDriving {
 			}
 			file.close();
 
+			std::cout << "Parsing Of Node Information Is Complete" << std::endl;
+
 		}
 
 		void WayParser(std::unordered_map<size_t, EcoDriving::Parsers::Way> &wayTable, std::string filename) {
@@ -173,6 +177,7 @@ namespace EcoDriving {
 				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 			}
 			file.close();
+			std::cout << "Parsing Of Way Information Is Complete" << std::endl;
 		}
 
 		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
@@ -207,10 +212,21 @@ namespace EcoDriving {
 				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 			}
 			file.close();
+			std::cout << "Parsing Of Node Conections Is Complete" << std::endl;
 		}
 
-		Linker::Linker()
-		{
+		Linker::Linker() {
+			std::cout << "Parsing Started" << std::endl;
+
+			std::thread nodeParse(NodeParser, nodes, "map.txt");
+			std::thread wayParse(WayParser, ways, "map1.txt");
+			std::thread conParse(ConectParser, conections, "map2.txt");
+
+			nodeParse.join();
+			wayParse.join();
+			conParse.join();
+
+			std::cout << "Parsing  Finished" << std::endl;
 		}
-}
+	}
 }

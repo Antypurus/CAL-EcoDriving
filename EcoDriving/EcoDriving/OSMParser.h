@@ -3,6 +3,8 @@
 #define OSMPARSER_H
 
 #include<string>
+#include<iostream>
+#include<thread>
 #include<unordered_set>
 #include<unordered_map>
 
@@ -60,6 +62,10 @@ namespace EcoDriving {
 namespace EcoDriving {
 	namespace Linker {
 
+		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
+		void WayParser(std::unordered_map<size_t,EcoDriving::Parsers::Way> &wayTable, std::string filename);
+		void ConectParser(std::unordered_map<size_t,EcoDriving::Parsers::Conect> &conTable, std::string filename);
+
 		class Linker {
 		public:
 			std::unordered_map<size_t,Parsers::Node> nodes;
@@ -68,10 +74,6 @@ namespace EcoDriving {
 
 			Linker();
 		};
-
-		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
-		void WayParser(std::unordered_map<size_t,EcoDriving::Parsers::Way> &wayTable, std::string filename);
-		void ConectParser(std::unordered_map<size_t,EcoDriving::Parsers::Conect> &conTable, std::string filename);
 	
 	}
 }
