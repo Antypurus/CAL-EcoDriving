@@ -89,8 +89,8 @@ namespace EcoDriving {
 
 namespace EcoDriving {
 	namespace Linker {
-		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node>& nodeTable, std::string filename){
-			
+		void NodeParser(std::unordered_map<size_t, EcoDriving::Parsers::Node>& nodeTable, std::string filename) {
+
 			nodeTable.clear();
 
 			double altitude, longitude, latitude;
@@ -101,8 +101,8 @@ namespace EcoDriving {
 
 			if (file.is_open()) {
 				while (!file.eof()) {
-					double latitude=0, longitude=0, altitude = 0;
-					size_t nodeID=0;
+					double latitude = 0, longitude = 0, altitude = 0;
+					size_t nodeID = 0;
 
 					help = "";
 
@@ -135,42 +135,44 @@ namespace EcoDriving {
 
 		}
 
-			void WayParser(std::unordered_map<size_t,EcoDriving::Parsers::Way> &wayTable, std::string filename) {
-				ifstream file(filename);
-				if (file.is_open()) {
-					while (!file.eof()) {
-						string name;
-						size_t wayID;
-						bool isTwoWay=false;
+		void WayParser(std::unordered_map<size_t, EcoDriving::Parsers::Way> &wayTable, std::string filename) {
+			ifstream file(filename);
+			if (file.is_open()) {
+				while (!file.eof()) {
+					string name;
+					size_t wayID;
+					bool isTwoWay = false;
 
-						string help;
-						stringstream help1,help2;
-						getline(file, help);
-						help1 << help;
-						help = "";
+					string help;
+					stringstream help1, help2;
+					getline(file, help);
+					help1 << help;
+					help = "";
 
-						cout << help1.str() << endl;
 
-						getline(help1, help, ';');
-						help2 << help;
-						help2 >> wayID;
-						getline(help1, name, ';');
-						getline(help1, help, ';');
-						if (help == "true") {
-							isTwoWay = true;
-						}
-						else {
-							isTwoWay = false;
-						}
-						cout << "Name:" << name << endl;
-						cout << "ID:" << wayID << endl;
-						system("pause");
+					getline(help1, help, ';');
+					help2 << help;
+					help2 >> wayID;
+
+					getline(help1, name, ';');
+
+					getline(help1, help, ';');
+					if (help == "True") {
+						isTwoWay = true;
 					}
+					else {
+						isTwoWay = false;
+					}
+
+					EcoDriving::Parsers::Way send(wayID, name, isTwoWay);
+
+					wayTable.insert(std::make_pair(send.getWayID(), send));
 				}
-				else {
-					cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
-				}
-				file.close();
 			}
+			else {
+				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+			}
+			file.close();
+		}
 	}
 }
