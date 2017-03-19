@@ -218,9 +218,9 @@ namespace EcoDriving {
 		Linker::Linker() {
 			std::cout << "Parsing Started" << std::endl;
 
-			std::thread nodeParse(NodeParser, nodes, "map.txt");
-			std::thread wayParse(WayParser, ways, "map1.txt");
-			std::thread conParse(ConectParser, conections, "map2.txt");
+			std::thread nodeParse(NodeParser, this->nodes,"map.txt");
+			std::thread wayParse(WayParser, this->ways, "map1.txt");
+			std::thread conParse(ConectParser, this->conections, "map2.txt");
 
 			nodeParse.join();
 			wayParse.join();

@@ -3,9 +3,11 @@
 #include<iostream>
 #include<unordered_map>
 
+using namespace EcoDriving::Linker;
+
 void main(void) {
 	
-	EcoDriving::Linker::Linker a();
+	Linker linker;
 
 	system("pause");
 

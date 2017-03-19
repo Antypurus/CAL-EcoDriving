@@ -66,7 +66,7 @@ namespace EcoDriving {
 		void WayParser(std::unordered_map<size_t,EcoDriving::Parsers::Way> &wayTable, std::string filename);
 		void ConectParser(std::unordered_map<size_t,EcoDriving::Parsers::Conect> &conTable, std::string filename);
 
-		class Linker {
+		class Linker{
 		public:
 			std::unordered_map<size_t,Parsers::Node> nodes;
 			std::unordered_map<size_t,Parsers::Way> ways;
