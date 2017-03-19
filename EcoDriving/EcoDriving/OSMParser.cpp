@@ -129,13 +129,48 @@ namespace EcoDriving {
 				}
 			}
 			else {
-				std::cout << "There Was An Issue Opening The Requested File" << std::endl;
+				std::cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 			}
 			file.close();
 
-			void WayParse(std::unordered_set<EcoDriving::Parsers::Way> &wayTable, std::string filename) {
-
-			}
 		}
+
+			void WayParser(std::unordered_map<size_t,EcoDriving::Parsers::Way> &wayTable, std::string filename) {
+				ifstream file(filename);
+				if (file.is_open()) {
+					while (!file.eof()) {
+						string name;
+						size_t wayID;
+						bool isTwoWay=false;
+
+						string help;
+						stringstream help1,help2;
+						getline(file, help);
+						help1 << help;
+						help = "";
+
+						cout << help1.str() << endl;
+
+						getline(help1, help, ';');
+						help2 << help;
+						help2 >> wayID;
+						getline(help1, name, ';');
+						getline(help1, help, ';');
+						if (help == "true") {
+							isTwoWay = true;
+						}
+						else {
+							isTwoWay = false;
+						}
+						cout << "Name:" << name << endl;
+						cout << "ID:" << wayID << endl;
+						system("pause");
+					}
+				}
+				else {
+					cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				}
+				file.close();
+			}
 	}
 }

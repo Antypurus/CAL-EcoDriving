@@ -5,13 +5,9 @@
 
 void main(void) {
 	
-	std::unordered_map<size_t, EcoDriving::Parsers::Node>nodes;
+	std::unordered_map<size_t, EcoDriving::Parsers::Way>nodes;
 
-	EcoDriving::Linker::NodeParser(nodes, "map.txt");
-	
-	EcoDriving::Parsers::Node a = nodes[138218147];
-
-	std::cout << a.getNodeID() << std::endl;
+	EcoDriving::Linker::WayParser(nodes, "map1.txt");
 	
 	system("pause");
 
