@@ -64,11 +64,11 @@ namespace EcoDriving {
 
 		Description:
 			This method receives a point and will calculate this points distance to the passed point , for this it will simply use the formula for calculating distance in cartesian spaces ;
-			d = sqrt((x1-x2)^2+(y1-y2)^2+(z1-z2)^2)
+			d = sqrt((x1-x2)^2+(y1-y2)^2+(z1-z2)^2) , also knows as the formula for calculating the euclidean distance between two points.
 		*/
-		inline double CoordinateSystem::distanceCalculation(CoordinateSystem dest)
+		double CoordinateSystem::distanceCalculation(CoordinateSystem dest)
 		{
-			return sqrt(pow(dest.x - x, 2) + pow(dest.y - y, 2) + pow(dest.z - z, 2));
+			return (sqrt(pow(dest.x - x, 2) + pow(dest.y - y, 2) + pow(dest.z - z, 2)));
 		}
 	}
 }

@@ -13,7 +13,7 @@ namespace EcoDriving {
 		public:
 			CoordinateSystem(double longitude, double latitude, double altitude, bool Cartesian);
 			~CoordinateSystem();
-			inline double distanceCalculation(CoordinateSystem dest);
+			double distanceCalculation(CoordinateSystem dest);
 		};
 	}
 }

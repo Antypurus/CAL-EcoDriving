@@ -6,6 +6,8 @@
 using namespace EcoDriving::Linker;
 
 void main(void) {
+
+	Linker a;
 	system("pause");
 	return;
 }

@@ -23,8 +23,9 @@ namespace EcoDriving {
 			this->CurrentBatteryAmmount = BatteryCapacity;
 		}
 
+		
 		double ElectricVehicle::wouldSpend(EcoCoordinate::CoordinateSystem placeToMove)const {
-			double send;
+			double send=0;
 			send = this->CurrentPosition->distanceCalculation(placeToMove);
 			if (this->CurrentPosition->z < placeToMove.z) {
 				send *= UP_HILL_ENERGY_COST;
@@ -48,8 +49,9 @@ namespace EcoDriving {
 		double ElectricVehicle::timeTo(EcoCoordinate::CoordinateSystem placeToMove) {
 			double calc = this->CurrentPosition->distanceCalculation(placeToMove);
 			return (calc / this->AverageVelocity);
+			return 0;
 		}
-
+		
 
 		ElectricVehicle::~ElectricVehicle()
 		{
