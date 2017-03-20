@@ -21,6 +21,9 @@ namespace EcoDriving {
 		public:
 			ElectricVehicle(double x, double y, double z, double AvgVelocity, double BatteryCapacity);
 			~ElectricVehicle();
+			double wouldSpend(EcoCoordinate::CoordinateSystem placeToMove)const;
+			void moveTo(EcoCoordinate::CoordinateSystem placeToMove);
+			double timeTo(EcoCoordinate::CoordinateSystem placeToMove);
 		};
 
 	}
