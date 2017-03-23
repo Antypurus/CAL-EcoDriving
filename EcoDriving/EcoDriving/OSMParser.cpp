@@ -4,9 +4,7 @@
 #include<iostream>
 #include<sstream>
 #include<thread>
-#include<unordered_map>
 #include"PROJECT_SETTINGS_MACROS.h"
-#include"Location.h"
 
 using namespace std;
 

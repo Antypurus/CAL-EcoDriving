@@ -1,6 +1,4 @@
-
-#ifndef OSMPARSER_H
-#define OSMPARSER_H
+#pragma once
 
 #include<unordered_map>
 
@@ -77,4 +75,3 @@ namespace EcoDriving {
 	
 	}
 }
-#endif // OSMPARSER_H
