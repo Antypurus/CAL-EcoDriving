@@ -4,6 +4,8 @@
 #include<iostream>
 #include<sstream>
 #include<thread>
+#include<iomanip>
+#include<functional>
 #include"PROJECT_SETTINGS_MACROS.h"
 
 using namespace std;
@@ -116,6 +118,7 @@ namespace EcoDriving {
 					help2 >> nodeID;
 
 					std::getline(helper, help, ';');
+					std::cout << "latitude string:" << help << std::endl;
 					help2 << help;
 					help2 >> latitude;
 
@@ -123,9 +126,16 @@ namespace EcoDriving {
 					help2 << help;
 					help2 >> longitude;
 
+					cout << "NodeID:" << nodeID << std::endl;
+					cout << "Latitude:" << latitude << std::endl;
+					cout << "Longitude:" << longitude << std::endl;
+
 					EcoDriving::Parsers::Node send(latitude, longitude, altitude, nodeID);
 
 					nodeTable.insert(std::make_pair(send.getNodeID(), send));
+					latitude = 0;
+					nodeID = 0;
+					longitude = 0;
 				}
 			}
 			else {
@@ -222,9 +232,10 @@ namespace EcoDriving {
 		Linker::Linker() {
 			std::cout << std::endl << "Parsing Started" << std::endl;
 
-			std::thread nodeParse(NodeParser, this->nodes, NODE_FILE);
-			std::thread wayParse(WayParser, this->ways, WAY_FILE);
-			std::thread conParse(ConectParser, this->conections, NODE_CONECTIONS_FILE);
+			std::thread nodeParse(NodeParser, std::ref(this->nodes), NODE_FILE);
+			std::thread wayParse(WayParser, std::ref(this->ways), WAY_FILE);
+			std::thread conParse(ConectParser, std::ref(this->conections), NODE_CONECTIONS_FILE);
+
 
 			nodeParse.join();
 			wayParse.join();

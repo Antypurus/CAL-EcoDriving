@@ -53,7 +53,7 @@ namespace EcoDriving {
 }
 
 #include"Hashes.h"
-#include"Location.h"
+#include"Location.h"//for some reason im not being able to forward declare the Location class
 
 namespace EcoDriving {
 
