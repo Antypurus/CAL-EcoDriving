@@ -2,12 +2,10 @@
 #ifndef OSMPARSER_H
 #define OSMPARSER_H
 
-#include<string>
-#include<iostream>
 #include<unordered_map>
 
-
 namespace EcoDriving {
+
 	namespace Parsers {
 
 		class Node {
@@ -57,7 +55,10 @@ namespace EcoDriving {
 }
 
 #include"Hashes.h"
+#include"Location.h"
+
 namespace EcoDriving {
+
 	namespace Linker {
 
 		void NodeParser(std::unordered_map<size_t,EcoDriving::Parsers::Node> &nodeTable, std::string filename);
@@ -69,6 +70,7 @@ namespace EcoDriving {
 			std::unordered_map<size_t,Parsers::Node> nodes;
 			std::unordered_map<size_t,Parsers::Way> ways;
 			std::unordered_map<size_t,Parsers::Conect> conections;
+			std::unordered_map<size_t,Location::Location> locationNodes;
 
 			Linker();
 		};

@@ -6,6 +6,7 @@
 #include<thread>
 #include<unordered_map>
 #include"PROJECT_SETTINGS_MACROS.h"
+#include"Location.h"
 
 using namespace std;
 
@@ -96,16 +97,14 @@ namespace EcoDriving {
 
 			nodeTable.clear();
 
-			double altitude, longitude, latitude;
-			size_t ID;
+			double altitude=0, longitude=0, latitude=0;
+			size_t nodeID=0;
 
 			std::string help;
 			std::ifstream file(filename);
 
 			if (file.is_open()) {
 				while (!file.eof()) {
-					double latitude = 0, longitude = 0, altitude = 0;
-					size_t nodeID = 0;
 
 					help = "";
 
@@ -232,6 +231,10 @@ namespace EcoDriving {
 			nodeParse.join();
 			wayParse.join();
 			conParse.join();
+			
+			for (std::unordered_map<size_t, Parsers::Node>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+				locationNodes.insert(std::make_pair(it->second.getNodeID(),EcoDriving::Location::Location((it->second))));
+			}
 
 			std::cout << std::endl << "Parsing  Finished" << std::endl;
 		}

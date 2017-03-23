@@ -1,5 +1,6 @@
 #include "ElectricVehicle.h"
 #include "MATH_CONSTANTS_MACROS.h"
+#include "CoordinateSystem.h"
 
 namespace EcoDriving {
 	namespace EcoVehicle {

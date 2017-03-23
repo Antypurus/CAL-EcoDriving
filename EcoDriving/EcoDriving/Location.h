@@ -1,9 +1,17 @@
 #pragma once
-#include"CoordinateSystem.h"
-#include"OSMParser.h"
 #include<string>
 
+
+
 namespace EcoDriving {
+	namespace Parsers {
+		class Node;//forward declare of de node class
+	}
+
+	namespace EcoCoordinate {
+		class CoordinateSystem;//forward declare of the Coordinate System class
+	}
+
 	namespace Location {
 		class Location
 		{
@@ -14,7 +22,7 @@ namespace EcoDriving {
 			bool m_HasRechargeStation=false;
 		public:
 			Location(const EcoDriving::Parsers::Node &node);
-			Location(const EcoDriving::Parsers::Node &node,bool hasRechargeStation);
+			Location(const Parsers::Node &node,bool hasRechargeStation);
 			void setName(std::string name);
 			std::string getName()const;
 			size_t getNodeID()const;

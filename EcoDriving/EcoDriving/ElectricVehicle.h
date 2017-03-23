@@ -1,7 +1,11 @@
 #pragma once
-
-#include"CoordinateSystem.h"
 #include"MATH_CONSTANTS_MACROS.h"
+
+namespace EcoDriving {
+	namespace EcoCoordinate {
+		class CoordinateSystem;
+	}
+}
 
 namespace EcoDriving {
 	namespace EcoVehicle {
