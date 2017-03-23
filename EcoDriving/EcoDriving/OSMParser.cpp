@@ -110,25 +110,23 @@ namespace EcoDriving {
 
 					std::getline(file, help);
 
-					stringstream helper(help);
-					stringstream help2;
+					istringstream helper(help);
+					istringstream help2;
 
 					std::getline(helper, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> nodeID;
+					help2.clear();
 
 					std::getline(helper, help, ';');
-					std::cout << "latitude string:" << help << std::endl;
-					help2 << help;
+					help2.str(help);
 					help2 >> latitude;
+					help2.clear();
 
 					std::getline(helper, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> longitude;
-
-					cout << "NodeID:" << nodeID << std::endl;
-					cout << "Latitude:" << latitude << std::endl;
-					cout << "Longitude:" << longitude << std::endl;
+					help2.clear();
 
 					EcoDriving::Parsers::Node send(latitude, longitude, altitude, nodeID);
 
