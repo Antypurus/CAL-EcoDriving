@@ -94,25 +94,19 @@ namespace EcoDriving {
 namespace EcoDriving {
 	namespace Linker {
 		void NodeParser(std::unordered_map<size_t, EcoDriving::Parsers::Node>& nodeTable, std::string filename) {
-
 			nodeTable.clear();
-
 			double altitude=0, longitude=0, latitude=0;
 			size_t nodeID=0;
-
 			std::string help;
 			std::ifstream file(filename);
-
 			if (file.is_open()) {
 				while (!file.eof()) {
-
 					help = "";
-
 					std::getline(file, help);
-
-					istringstream helper(help);
-					istringstream help2;
-
+					static istringstream helper; helper.str(help);
+					static istringstream help2;
+					help2.clear();
+					
 					std::getline(helper, help, ';');
 					help2.str(help);
 					help2 >> nodeID;
@@ -129,11 +123,11 @@ namespace EcoDriving {
 					help2.clear();
 
 					EcoDriving::Parsers::Node send(latitude, longitude, altitude, nodeID);
-
 					nodeTable.insert(std::make_pair(send.getNodeID(), send));
 					latitude = 0;
 					nodeID = 0;
 					longitude = 0;
+					helper.clear();
 				}
 			}
 			else {
@@ -142,9 +136,7 @@ namespace EcoDriving {
 				return;
 			}
 			file.close();
-
 			std::cout << std::endl << "Parsing Of Node Information Is Complete" << std::endl;
-
 		}
 
 		void WayParser(std::unordered_map<size_t, EcoDriving::Parsers::Way> &wayTable, std::string filename) {
@@ -156,15 +148,15 @@ namespace EcoDriving {
 					bool isTwoWay = false;
 
 					string help;
-					stringstream help1, help2;
 					getline(file, help);
-					help1 << help;
-					help = "";
-
+					static istringstream help1; help1.str(help);
+					static istringstream help2;
+					help2.clear();
 
 					getline(help1, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> wayID;
+					help2.clear();
 
 					getline(help1, name, ';');
 
@@ -177,8 +169,8 @@ namespace EcoDriving {
 					}
 
 					EcoDriving::Parsers::Way send(wayID, name, isTwoWay);
-
 					wayTable.insert(std::make_pair(send.getWayID(), send));
+					help1.clear();
 				}
 			}
 			else {
@@ -196,26 +188,29 @@ namespace EcoDriving {
 				while (!file.eof()) {
 					size_t wayID, srcID, dstID;
 					string help;
-					stringstream help1, help2;
-
 					getline(file, help);
-					help1 << help;
+					static istringstream help1; help1.str(help);
+					static istringstream help2;
+					help2.clear();
 
 					getline(help1, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> wayID;
+					help2.clear();
 
 					getline(help1, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> srcID;
+					help2.clear();
 
 					getline(help1, help, ';');
-					help2 << help;
+					help2.str(help);
 					help2 >> dstID;
+					help2.clear();
 
 					EcoDriving::Parsers::Conect send(wayID, srcID, dstID);
-
 					conTable.insert(std::make_pair(wayID, send));
+					help1.clear();
 				}
 			}
 			else {
