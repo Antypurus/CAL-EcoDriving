@@ -112,6 +112,7 @@
   <ItemGroup>
     <ClCompile Include="CoordinateSystem.cpp" />
     <ClCompile Include="ElectricVehicle.cpp" />
+    <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OSMParser.cpp" />
   </ItemGroup>
@@ -119,6 +120,7 @@
     <ClInclude Include="CoordinateSystem.h" />
     <ClInclude Include="ElectricVehicle.h" />
     <ClInclude Include="Hashes.h" />
+    <ClInclude Include="Location.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />
     <ClInclude Include="OSMParser.h" />
     <ClInclude Include="PROJECT_SETTINGS_MACROS.h" />

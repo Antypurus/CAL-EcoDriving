@@ -1,4 +1,6 @@
 #include "ElectricVehicle.h"
+#include "MATH_CONSTANTS_MACROS.h"
+#include "CoordinateSystem.h"
 
 namespace EcoDriving {
 	namespace EcoVehicle {
@@ -22,6 +24,35 @@ namespace EcoDriving {
 			this->CurrentBatteryAmmount = BatteryCapacity;
 		}
 
+		
+		double ElectricVehicle::wouldSpend(EcoCoordinate::CoordinateSystem placeToMove)const {
+			double send=0;
+			send = this->CurrentPosition->distanceCalculation(placeToMove);
+			if (this->CurrentPosition->z < placeToMove.z) {
+				send *= UP_HILL_ENERGY_COST;
+			}
+			else if (this->CurrentPosition->z < placeToMove.z) {
+				send *= -DOWN_HILL_REFENERATION;
+			}
+			return send;
+		}
+
+		void ElectricVehicle::moveTo(EcoCoordinate::CoordinateSystem placeToMove){
+			this->CurrentBatteryAmmount += this->wouldSpend(placeToMove);
+			if (CurrentBatteryAmmount < 0) {
+				CurrentBatteryAmmount = 0;
+			}
+			if (CurrentBatteryAmmount > BatteryCapacity) {
+				CurrentBatteryAmmount = BatteryCapacity;
+			}
+		}
+
+		double ElectricVehicle::timeTo(EcoCoordinate::CoordinateSystem placeToMove) {
+			double calc = this->CurrentPosition->distanceCalculation(placeToMove);
+			return (calc / this->AverageVelocity);
+			return 0;
+		}
+		
 
 		ElectricVehicle::~ElectricVehicle()
 		{
