@@ -27,6 +27,7 @@ namespace EcoDriving {
 			std::string getName()const;
 			size_t getNodeID()const;
 			EcoCoordinate::CoordinateSystem getCoordinates()const;
+			bool operator==(const Location &loc)const;
 		};
 	}
 }

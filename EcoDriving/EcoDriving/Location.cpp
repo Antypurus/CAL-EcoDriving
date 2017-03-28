@@ -37,5 +37,12 @@ namespace EcoDriving {
 		{
 			return *(this->m_Coordinates);
 		}
+		bool Location::operator==(const Location & loc) const
+		{
+			if (this->m_NodeID == loc.getNodeID()) {
+				return true;
+			}
+			return false;
+		}
 	}
 }
