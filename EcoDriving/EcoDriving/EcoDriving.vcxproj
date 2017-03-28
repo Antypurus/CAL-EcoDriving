@@ -119,6 +119,7 @@
   <ItemGroup>
     <ClInclude Include="CoordinateSystem.h" />
     <ClInclude Include="ElectricVehicle.h" />
+    <ClInclude Include="Graph.h" />
     <ClInclude Include="Hashes.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />
