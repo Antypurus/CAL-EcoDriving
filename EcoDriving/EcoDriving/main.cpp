@@ -20,6 +20,16 @@ void main(void) {
 	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
 	}
+	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
+		size_t srcID, dstID,wayID;
+		wayID = it->first;
+		srcID = it->second.getSrcID();
+		dstID = it->second.getDstID();
+		EcoDriving::Location::Location src = a.locationNodes[srcID];
+		std::cout << "Node ID:" << src.getNodeID() << std::endl;
+		EcoDriving::Location::Location dst = a.locationNodes[dstID];
+		locationGraph.addEdge(src, dst, 0);
+	}
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
 

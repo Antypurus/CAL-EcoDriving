@@ -121,9 +121,16 @@ class Edge {
 	double weight;
 public:
 	Edge(Vertex<T> *d, double w);
+	void setPeso(double w);
 	friend class Graph<T>;
 	friend class Vertex<T>;
 };
+
+//added in order to be able to modify the weight later
+template<class T>
+void Edge<T>::setPeso(double w) {
+	this->weight = w;
+}
 
 template <class T>
 Edge<T>::Edge(Vertex<T> *d, double w): dest(d), weight(w){}
@@ -234,7 +241,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	int found=0;
-	Vertex<T> *vS, *vD;
+	Vertex<T> *vS=nullptr, *vD=nullptr;
 	while (found!=2 && it!=ite ) {
 		if ( (*it)->info == sourc )
 			{ vS=*it; found++;}
@@ -254,7 +261,7 @@ bool Graph<T>::removeEdge(const T &sourc, const T &dest) {
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	int found=0;
-	Vertex<T> *vS, *vD;
+	Vertex<T> *vS=nullptr, *vD=nullptr;
 	while (found!=2 && it!=ite ) {
 		if ( (*it)->info == sourc )
 			{ vS=*it; found++;}
@@ -516,6 +523,4 @@ void Graph<T>::unweightedShortestPath(const T &s) {
 		}
 	}
 }
-
-
 #endif /* GRAPH_H_ */

@@ -12,7 +12,7 @@ using namespace std;
 
 namespace EcoDriving {
 	namespace Parsers {
-		//Node	
+		//Node
 		size_t Node::getNodeID()const {
 			return this->nodeID;
 		}
@@ -56,6 +56,11 @@ namespace EcoDriving {
 
 		bool Way::operator==(const Way &way)const {
 			return (this->wayID == way.getWayID());
+		}
+
+		void Way::addEdge(const size_t srcID, const size_t dstID)
+		{
+			this->edges.push_back(std::make_pair(srcID, dstID));
 		}
 
 		Way::Way(size_t wayID, std::string name, bool isTwoWay) {
@@ -106,7 +111,7 @@ namespace EcoDriving {
 					static istringstream helper; helper.str(help);
 					static istringstream help2;
 					help2.clear();
-					
+
 					std::getline(helper, help, ';');
 					help2.str(help);
 					help2 >> nodeID;
@@ -233,7 +238,7 @@ namespace EcoDriving {
 			nodeParse.join();
 			wayParse.join();
 			conParse.join();
-			
+
 			for (std::unordered_map<size_t, Parsers::Node>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
 				locationNodes.insert(std::make_pair(it->second.getNodeID(),EcoDriving::Location::Location((it->second))));
 			}

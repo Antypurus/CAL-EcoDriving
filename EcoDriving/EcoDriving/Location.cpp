@@ -13,6 +13,10 @@ namespace EcoDriving {
 			this->m_NodeID = node.getNodeID();
 		}
 
+		Location::Location()
+		{
+		}
+
 		Location::Location(const EcoDriving::Parsers::Node &node, bool hasRechargeStation)
 		{
 			this->m_Coordinates = new EcoCoordinate::CoordinateSystem(node.getLongitude(), node.getLatitude(), node.getAltitude(), false);
@@ -43,6 +47,11 @@ namespace EcoDriving {
 				return true;
 			}
 			return false;
+		}
+
+		void Location::operator=(const Location &loc) {
+			this->m_Coordinates = &(loc.getCoordinates());
+			this->m_NodeID = loc.getNodeID();
 		}
 	}
 }

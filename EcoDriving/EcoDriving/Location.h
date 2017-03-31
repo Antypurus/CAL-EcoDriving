@@ -22,12 +22,14 @@ namespace EcoDriving {
 			bool m_HasRechargeStation=false;
 		public:
 			Location(const EcoDriving::Parsers::Node &node);
+			Location();
 			Location(const Parsers::Node &node,bool hasRechargeStation);
 			void setName(std::string name);
 			std::string getName()const;
 			size_t getNodeID()const;
 			EcoCoordinate::CoordinateSystem getCoordinates()const;
 			bool operator==(const Location &loc)const;
+			void operator=(const Location &loc);
 		};
 	}
 }

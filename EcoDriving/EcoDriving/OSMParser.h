@@ -1,6 +1,8 @@
 #pragma once
 
 #include<unordered_map>
+#include<vector>
+#include<utility>
 
 namespace EcoDriving {
 
@@ -27,12 +29,14 @@ namespace EcoDriving {
 			std::string name;
 			size_t wayID;
 			bool twoWay = false;
+			std::vector<pair<size_t, size_t>> edges;
 		public:
 			Way(size_t wayID, std::string name, bool isTwoWay);
 			std::string getName()const;
 			size_t getWayID()const;
 			bool isTwoWay()const;
 			bool operator==(const Way &way)const;
+			void addEdge(const size_t srcID, const size_t dstID);
 		};
 
 		class Conect {
@@ -72,6 +76,6 @@ namespace EcoDriving {
 
 			Linker();
 		};
-	
+
 	}
 }
