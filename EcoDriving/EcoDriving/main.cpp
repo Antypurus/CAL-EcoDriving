@@ -4,6 +4,8 @@
 #include<unordered_map>
 #include"Graph.h"
 #include"Location.h"
+#include "ElectricVehicle.h"
+#include "PROJECT_SETTINGS_MACROS.h"
 
 using namespace EcoDriving::Linker;
 
@@ -15,6 +17,8 @@ void main(void) {
 	std::cout << "Connections:" << a.conections.size() << std::endl;
 	std::cout << "Ways:" << a.ways.size() << std::endl;
 	std::cout << "Node Locations:" << a.locationNodes.size() << std::endl;
+
+	EcoDriving::EcoVehicle::ElectricVehicle car(0,0,0,100,1000);
 
 	Graph<EcoDriving::Location::Location> locationGraph;
 	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
@@ -31,7 +35,11 @@ void main(void) {
 			EcoDriving::Location::Location src = a.locationNodes[edgePair.first];
 			EcoDriving::Location::Location dst = a.locationNodes[edgePair.second];
 			locationGraph.addEdge(src, dst, 0);
-			//cout << "Added Edge Number:" << c << endl;
+
+#if DISPLAY_METRICS
+			cout << "Added Edge Number:" << c << endl;
+#endif
+
 		}
 	}
 

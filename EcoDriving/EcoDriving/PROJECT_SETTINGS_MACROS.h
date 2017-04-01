@@ -7,4 +7,4 @@
 #define USE_OPTIMIZED_DKJS 0
 #define USE_A_STAR 0
 
-#define DISPLAY_METRICS 1
+#define DISPLAY_METRICS 0
