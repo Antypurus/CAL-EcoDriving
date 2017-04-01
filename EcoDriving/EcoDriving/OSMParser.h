@@ -42,9 +42,10 @@ namespace EcoDriving {
 			size_t wayID;
 			size_t srcID;
 			size_t dstID;
-			std::vector<pair<size_t, size_t>> edges;
+			std::vector<std::pair<size_t, size_t>> edges;
 		public:
 			Conect(size_t wayID, size_t srcID, size_t dstID);
+			Conect() {};
 			size_t getWayID()const;
 			size_t getSrcID()const;
 			size_t getDstID()const;

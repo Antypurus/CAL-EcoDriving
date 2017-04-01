@@ -26,7 +26,6 @@ void main(void) {
 		srcID = it->second.getSrcID();
 		dstID = it->second.getDstID();
 		EcoDriving::Location::Location src = a.locationNodes[srcID];
-		std::cout << "Node ID:" << src.getNodeID() << std::endl;
 		EcoDriving::Location::Location dst = a.locationNodes[dstID];
 		locationGraph.addEdge(src, dst, 0);
 	}
