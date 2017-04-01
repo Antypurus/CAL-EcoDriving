@@ -93,6 +93,10 @@ namespace EcoDriving {
 		{
 			this->edges.push_back(std::make_pair(srcID, dstID));
 		}
+		std::vector<std::pair<size_t, size_t>> Conect::getEdges() const
+		{
+			return this->edges;
+		}
 	}
 }
 
@@ -105,9 +109,7 @@ namespace EcoDriving {
 			std::string help;
 			std::ifstream file(filename);
 			if (file.is_open()) {
-				while (!file.eof()) {
-					help = "";
-					std::getline(file, help);
+				while (getline(file,help)) {
 					static istringstream helper; helper.str(help);
 					static istringstream help2;
 					help2.clear();
@@ -133,6 +135,8 @@ namespace EcoDriving {
 					nodeID = 0;
 					longitude = 0;
 					helper.clear();
+					help2.clear();
+					help.clear();
 				}
 			}
 			else {
@@ -148,7 +152,7 @@ namespace EcoDriving {
 			ifstream file(filename);
 			string help;
 			if (file.is_open()) {
-				while (std::getline(file,help)) {
+				while (getline(file,help)) {
 					string name;
 					size_t wayID;
 					bool isTwoWay = false;
@@ -190,12 +194,10 @@ namespace EcoDriving {
 
 		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
 			ifstream file(filename);
+			string help;
 			if (file.is_open()) {
-				while (!file.eof()) {//fix this shit to use getline in the while ffs you dumb retard(me)
-					//the parsing of the road information seems to be corect
+				while (std::getline(file,help)) {
 					size_t wayID, srcID, dstID;
-					string help;
-					getline(file, help);
 					static istringstream help1; help1.str(help);
 					static istringstream help2;
 					help2.clear();
@@ -223,6 +225,7 @@ namespace EcoDriving {
 						conTable[wayID].addEdge(srcID, dstID);
 					}
 					help1.clear();
+					help.clear();
 				}
 			}
 			else {
@@ -231,7 +234,7 @@ namespace EcoDriving {
 				return;
 			}
 			file.close();
-			std::cout << std::endl << "Parsing Of Node Conections Is Complete" << std::endl;
+			std::cout << std::endl << "Parsing Of Node Connections Is Complete" << std::endl;
 		}
 
 		Linker::Linker() {
@@ -240,7 +243,6 @@ namespace EcoDriving {
 			std::thread nodeParse(NodeParser, std::ref(this->nodes), NODE_FILE);
 			std::thread wayParse(WayParser, std::ref(this->ways), WAY_FILE);
 			std::thread conParse(ConectParser, std::ref(this->conections), NODE_CONECTIONS_FILE);
-
 
 			nodeParse.join();
 			wayParse.join();

@@ -51,6 +51,7 @@ namespace EcoDriving {
 			size_t getDstID()const;
 			bool operator==(const Conect &conect)const;
 			void addEdge(const size_t srcID, const size_t dstID);
+			std::vector<std::pair<size_t, size_t>> getEdges()const;
 		};
 
 	}

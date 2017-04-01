@@ -10,9 +10,9 @@ using namespace EcoDriving::Linker;
 void main(void) {
 
 	Linker a;
-
+	int c = 0;
 	std::cout << "Nodes:" << a.nodes.size() << std::endl;
-	std::cout << "Conections:" << a.conections.size() << std::endl;
+	std::cout << "Connections:" << a.conections.size() << std::endl;
 	std::cout << "Ways:" << a.ways.size() << std::endl;
 	std::cout << "Node Locations:" << a.locationNodes.size() << std::endl;
 
@@ -25,9 +25,14 @@ void main(void) {
 		wayID = it->first;
 		srcID = it->second.getSrcID();
 		dstID = it->second.getDstID();
-		EcoDriving::Location::Location src = a.locationNodes[srcID];
-		EcoDriving::Location::Location dst = a.locationNodes[dstID];
-		locationGraph.addEdge(src, dst, 0);
+		for (unsigned int i = 0; i < it->second.getEdges().size(); i++) {
+			c++;
+			typename std::pair<size_t, size_t> edgePair = it->second.getEdges()[i];
+			EcoDriving::Location::Location src = a.locationNodes[edgePair.first];
+			EcoDriving::Location::Location dst = a.locationNodes[edgePair.second];
+			locationGraph.addEdge(src, dst, 0);
+			//cout << "Added Edge Number:" << c << endl;
+		}
 	}
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
