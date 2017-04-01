@@ -58,10 +58,6 @@ namespace EcoDriving {
 			return (this->wayID == way.getWayID());
 		}
 
-		void Way::addEdge(const size_t srcID, const size_t dstID)
-		{
-			this->edges.push_back(std::make_pair(srcID, dstID));
-		}
 
 		Way::Way(size_t wayID, std::string name, bool isTwoWay) {
 			this->wayID = wayID;
@@ -93,6 +89,10 @@ namespace EcoDriving {
 			this->dstID = dstID;
 		}
 
+		void Conect::addEdge(const size_t srcID, const size_t dstID)
+		{
+			this->edges.push_back(std::make_pair(srcID, dstID));
+		}
 	}
 }
 
@@ -146,14 +146,13 @@ namespace EcoDriving {
 
 		void WayParser(std::unordered_map<size_t, EcoDriving::Parsers::Way> &wayTable, std::string filename) {
 			ifstream file(filename);
+			string help;
 			if (file.is_open()) {
-				while (!file.eof()) {
+				while (std::getline(file,help)) {
 					string name;
 					size_t wayID;
 					bool isTwoWay = false;
 
-					string help;
-					getline(file, help);
 					static istringstream help1; help1.str(help);
 					static istringstream help2;
 					help2.clear();
@@ -176,6 +175,8 @@ namespace EcoDriving {
 					EcoDriving::Parsers::Way send(wayID, name, isTwoWay);
 					wayTable.insert(std::make_pair(send.getWayID(), send));
 					help1.clear();
+					help2.clear();
+					help.clear();
 				}
 			}
 			else {
@@ -190,7 +191,8 @@ namespace EcoDriving {
 		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
 			ifstream file(filename);
 			if (file.is_open()) {
-				while (!file.eof()) {
+				while (!file.eof()) {//fix this shit to use getline in the while ffs you dumb retard(me)
+					//the parsing of the road information seems to be corect
 					size_t wayID, srcID, dstID;
 					string help;
 					getline(file, help);
@@ -213,8 +215,13 @@ namespace EcoDriving {
 					help2 >> dstID;
 					help2.clear();
 
-					EcoDriving::Parsers::Conect send(wayID, srcID, dstID);
-					conTable.insert(std::make_pair(wayID, send));
+					if (conTable.count(wayID) == 0) {
+						EcoDriving::Parsers::Conect send(wayID, srcID, dstID);
+						conTable.insert(std::make_pair(wayID, send));
+					}
+					else {
+						conTable[wayID].addEdge(srcID, dstID);
+					}
 					help1.clear();
 				}
 			}
@@ -247,3 +254,6 @@ namespace EcoDriving {
 		}
 	}
 }
+
+
+

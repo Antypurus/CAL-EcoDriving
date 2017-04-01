@@ -29,14 +29,12 @@ namespace EcoDriving {
 			std::string name;
 			size_t wayID;
 			bool twoWay = false;
-			std::vector<pair<size_t, size_t>> edges;
 		public:
 			Way(size_t wayID, std::string name, bool isTwoWay);
 			std::string getName()const;
 			size_t getWayID()const;
 			bool isTwoWay()const;
 			bool operator==(const Way &way)const;
-			void addEdge(const size_t srcID, const size_t dstID);
 		};
 
 		class Conect {
@@ -44,12 +42,14 @@ namespace EcoDriving {
 			size_t wayID;
 			size_t srcID;
 			size_t dstID;
+			std::vector<pair<size_t, size_t>> edges;
 		public:
 			Conect(size_t wayID, size_t srcID, size_t dstID);
 			size_t getWayID()const;
 			size_t getSrcID()const;
 			size_t getDstID()const;
 			bool operator==(const Conect &conect)const;
+			void addEdge(const size_t srcID, const size_t dstID);
 		};
 
 	}
