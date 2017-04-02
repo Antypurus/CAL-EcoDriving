@@ -1,12 +1,14 @@
-#include"OSMParser.h"
-#include<fstream>
-#include<string>
-#include<iostream>
-#include<sstream>
-#include<thread>
-#include<iomanip>
-#include<functional>
-#include"PROJECT_SETTINGS_MACROS.h"
+#include "OSMParser.h"
+#include <fstream>
+#include <string>
+#include <iostream>
+#include <sstream>
+#include <thread>
+#include <iomanip>
+#include <functional>
+#include <random>
+#include "PROJECT_SETTINGS_MACROS.h"
+#include "MATH_CONSTANTS_MACROS.h"
 
 using namespace std;
 
@@ -106,8 +108,10 @@ namespace EcoDriving {
 			nodeTable.clear();
 			double altitude=0, longitude=0, latitude=0;
 			size_t nodeID=0;
+			bool hasChanged = false;
 			std::string help;
 			std::ifstream file(filename);
+			double prevAltitude = 0;
 			if (file.is_open()) {
 				while (getline(file,help)) {
 					static istringstream helper; helper.str(help);
@@ -129,6 +133,35 @@ namespace EcoDriving {
 					help2 >> longitude;
 					help2.clear();
 
+					if (!hasChanged) {
+						std::random_device seedDevice;
+						static std::mt19937 generator(seedDevice());
+						int shouldChange = generator() % 100;
+						if (shouldChange <= 100 * ELEVETAION_CHANGE_CHANCE) {
+							int changeDir = generator() % 3;
+							if (changeDir != 0) {
+								hasChanged = true;
+								double changeAmount = generator()%MAX_ELEVATION_CHANGE+1;
+								if (changeDir == 1) {
+									altitude = prevAltitude + changeAmount;
+									prevAltitude = altitude;
+								}
+								else {
+									altitude = prevAltitude - changeAmount;
+									prevAltitude = altitude;
+								}
+
+							}
+						}
+					}
+					else {
+						hasChanged = false;
+					}
+#if DISPLAY_METRICS
+					cout << "Altitude:" << altitude << endl;
+					cout << "Latitude:" << latitude << endl;
+					cout << "Longitude:" << longitude << endl;
+#endif
 					EcoDriving::Parsers::Node send(latitude, longitude, altitude, nodeID);
 					nodeTable.insert(std::make_pair(send.getNodeID(), send));
 					latitude = 0;

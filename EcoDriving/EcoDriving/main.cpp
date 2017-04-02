@@ -1,12 +1,13 @@
 
-#include"OSMParser.h"
-#include<iostream>
-#include<unordered_map>
-#include"Graph.h"
-#include"Location.h"
+#include "OSMParser.h"
+#include <iostream>
+#include <unordered_map>
+#include "Graph.h"
+#include "Location.h"
 #include "ElectricVehicle.h"
 #include "PROJECT_SETTINGS_MACROS.h"
 #include "CoordinateSystem.h"
+#include "MATH_CONSTANTS_MACROS.h"
 
 using namespace EcoDriving::Linker;
 
@@ -25,27 +26,32 @@ void main(void) {
 	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
 	}
-	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
-		size_t srcID, dstID,wayID;
-		wayID = it->first;
-		srcID = it->second.getSrcID();
-		dstID = it->second.getDstID();
-		for (unsigned int i = 0; i < it->second.getEdges().size(); i++) {
-			c++;
-			typename std::pair<size_t, size_t> edgePair = it->second.getEdges()[i];
-			static EcoDriving::Location::Location src = a.locationNodes[edgePair.first];
-			static EcoDriving::Location::Location dst = a.locationNodes[edgePair.second];
 
-			double heightDiff =dst.getCoordinates().altitude - src.getCoordinates().altitude;
+	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
+		std::vector<std::pair<size_t, size_t>> edges = it->second.getEdges();
+		for (int i = 0; i < edges.size(); i++) {
+			EcoDriving::Location::Location src = a.locationNodes[edges[i].first];
+			EcoDriving::Location::Location dst = a.locationNodes[edges[i].second];
+
 			double distance = src.getCoordinates().distanceCalculation(dst.getCoordinates());
 			double timeToArrival = distance * car.getVelocity();
+			double heightDiff = dst.getCoordinates().altitude - src.getCoordinates().altitude;
 
-			locationGraph.addEdge(src, dst, 0);
+			double usedBattery = 0;
+			if (heightDiff == 0) {
+				usedBattery = distance*FLAT_ENERGY_COST;
+			}
+			else if (heightDiff < 0) {
+				usedBattery = -distance*DOWN_HILL_REFENERATION;
+			}
+			else if (heightDiff > 0) {
+				usedBattery = distance*UP_HILL_ENERGY_COST;
+			}
 
-#if DISPLAY_METRICS
-			cout << "Added Edge Number:" << c << endl;
-#endif
+			double weight = usedBattery + distance + timeToArrival;
+			//cout << "Weight:" << weight << endl;
 
+			locationGraph.addEdge(src, dst, weight);
 		}
 	}
 
