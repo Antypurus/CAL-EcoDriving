@@ -6,6 +6,7 @@
 #include"Location.h"
 #include "ElectricVehicle.h"
 #include "PROJECT_SETTINGS_MACROS.h"
+#include "CoordinateSystem.h"
 
 using namespace EcoDriving::Linker;
 
@@ -32,8 +33,13 @@ void main(void) {
 		for (unsigned int i = 0; i < it->second.getEdges().size(); i++) {
 			c++;
 			typename std::pair<size_t, size_t> edgePair = it->second.getEdges()[i];
-			EcoDriving::Location::Location src = a.locationNodes[edgePair.first];
-			EcoDriving::Location::Location dst = a.locationNodes[edgePair.second];
+			static EcoDriving::Location::Location src = a.locationNodes[edgePair.first];
+			static EcoDriving::Location::Location dst = a.locationNodes[edgePair.second];
+
+			double heightDiff =dst.getCoordinates().altitude - src.getCoordinates().altitude;
+			double distance = src.getCoordinates().distanceCalculation(dst.getCoordinates());
+			double timeToArrival = distance * car.getVelocity();
+
 			locationGraph.addEdge(src, dst, 0);
 
 #if DISPLAY_METRICS

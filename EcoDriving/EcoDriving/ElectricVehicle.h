@@ -28,6 +28,7 @@ namespace EcoDriving {
 			double wouldSpend(EcoCoordinate::CoordinateSystem placeToMove)const;
 			void moveTo(EcoCoordinate::CoordinateSystem placeToMove);
 			double timeTo(EcoCoordinate::CoordinateSystem placeToMove);
+			double getVelocity()const { return this->AverageVelocity; }
 		};
 
 	}
