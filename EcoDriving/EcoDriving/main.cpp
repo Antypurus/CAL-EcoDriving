@@ -1,6 +1,5 @@
 
 #include "OSMParser.h"
-#include <iostream>
 #include <unordered_map>
 #include "Graph.h"
 #include "Location.h"
@@ -8,13 +7,33 @@
 #include "PROJECT_SETTINGS_MACROS.h"
 #include "CoordinateSystem.h"
 #include "MATH_CONSTANTS_MACROS.h"
+#include <cstdio>
+#include "graphviewer.h"
+#include <fstream>
+#include <iostream>
+#include <sstream>
 
 using namespace EcoDriving::Linker;
 
 void main(void) {
+	GraphViewer *g = new GraphViewer(600, 600, false);
+	GraphViewer *gv = new GraphViewer(600, 600, true);
+
+	gv->setBackground("background.jpg");
+
+	gv->createWindow(600, 600);
+
+
+	gv->defineVertexColor("blue");
+	gv->defineEdgeColor("black");
+
+	gv->addNode(0);
+	gv->addNode(1);
+	gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
+
+	gv->rearrange();
 
 	Linker a;
-	int c = 0;
 	std::cout << "Nodes:" << a.nodes.size() << std::endl;
 	std::cout << "Connections:" << a.conections.size() << std::endl;
 	std::cout << "Ways:" << a.ways.size() << std::endl;
@@ -26,10 +45,11 @@ void main(void) {
 	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
 	}
-
+	int c = 0;
 	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
 		std::vector<std::pair<size_t, size_t>> edges = it->second.getEdges();
 		for (int i = 0; i < edges.size(); i++) {
+			c++;
 			EcoDriving::Location::Location src = a.locationNodes[edges[i].first];
 			EcoDriving::Location::Location dst = a.locationNodes[edges[i].second];
 
@@ -48,15 +68,23 @@ void main(void) {
 				usedBattery = distance*UP_HILL_ENERGY_COST;
 			}
 
-			double weight = usedBattery + distance + timeToArrival;
+			double weight = usedBattery;
 			//cout << "Weight:" << weight << endl;
 
 			locationGraph.addEdge(src, dst, weight);
 		}
 	}
 
+	locationGraph.dijkstraShortestPath(a.locationNodes.begin()->second);
+	EcoDriving::Location::Location end = (--a.locationNodes.end())->second;
+	vector<EcoDriving::Location::Location> res = locationGraph.getPath(a.locationNodes.begin()->second, end);
+
+	for (int i = 0; i < res.size(); i++) {
+		cout << "ID:" << res[i].getNodeID() << endl;
+	}
+
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
 
-	system("pause");
+	getchar();
 	return;
 }

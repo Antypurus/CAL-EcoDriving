@@ -82,6 +82,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
+    <Link>
+      <AdditionalDependencies>wsock32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+    </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -110,16 +113,21 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="connection.cpp" />
     <ClCompile Include="CoordinateSystem.cpp" />
     <ClCompile Include="ElectricVehicle.cpp" />
+    <ClCompile Include="graphviewer.cpp" />
     <ClCompile Include="Location.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="OSMParser.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="connection.h" />
     <ClInclude Include="CoordinateSystem.h" />
+    <ClInclude Include="edgetype.h" />
     <ClInclude Include="ElectricVehicle.h" />
     <ClInclude Include="Graph.h" />
+    <ClInclude Include="graphviewer.h" />
     <ClInclude Include="Hashes.h" />
     <ClInclude Include="Location.h" />
     <ClInclude Include="MATH_CONSTANTS_MACROS.h" />

@@ -30,6 +30,12 @@
     <ClCompile Include="Location.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="connection.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="graphviewer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="CoordinateSystem.h">
@@ -55,6 +61,15 @@
     </ClInclude>
     <ClInclude Include="Graph.h">
       <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="connection.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="edgetype.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="graphviewer.h">
+      <Filter>Source Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

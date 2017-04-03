@@ -30,6 +30,12 @@ namespace EcoDriving {
 			EcoCoordinate::CoordinateSystem getCoordinates()const;
 			bool operator==(const Location &loc)const;
 			void operator=(const Location &loc);
+			bool operator!=(const Location &loc)const {
+				if (this->m_NodeID != loc.getNodeID()) {
+					return true;
+				}
+				return false;
+			}
 		};
 	}
 }
