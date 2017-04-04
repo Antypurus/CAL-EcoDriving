@@ -35,9 +35,9 @@ void main(void) {
 	EcoDriving::EcoVehicle::ElectricVehicle car(0,0,0,100,1000);
 
 	Graph<EcoDriving::Location::Location> locationGraph;
-	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
+	for (auto it = a.locationNodes.begin(); it != a.locationNodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
-		gv->addNode(it->first);
+		gv->addNode(it->first,it->second.getCoordinates().x, it->second.getCoordinates().y);
 	}
 	int c = 0;
 	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
