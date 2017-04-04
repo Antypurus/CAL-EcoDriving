@@ -16,7 +16,6 @@
 using namespace EcoDriving::Linker;
 
 void main(void) {
-	GraphViewer *g = new GraphViewer(600, 600, false);
 	GraphViewer *gv = new GraphViewer(600, 600, true);
 
 	gv->setBackground("background.jpg");
@@ -26,12 +25,6 @@ void main(void) {
 
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
-
-	gv->addNode(0);
-	gv->addNode(1);
-	gv->addEdge(0, 0, 1, EdgeType::UNDIRECTED);
-
-	gv->rearrange();
 
 	Linker a;
 	std::cout << "Nodes:" << a.nodes.size() << std::endl;
@@ -44,6 +37,7 @@ void main(void) {
 	Graph<EcoDriving::Location::Location> locationGraph;
 	for (auto it = a.nodes.begin(); it != a.nodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
+		gv->addNode(it->first);
 	}
 	int c = 0;
 	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
@@ -70,6 +64,7 @@ void main(void) {
 
 			double weight = usedBattery;
 			//cout << "Weight:" << weight << endl;
+			gv->addEdge(c, src.getNodeID(), dst.getNodeID(), EdgeType::DIRECTED);
 
 			locationGraph.addEdge(src, dst, weight);
 		}
@@ -82,6 +77,7 @@ void main(void) {
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
 	}
+	gv->rearrange();
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
 
