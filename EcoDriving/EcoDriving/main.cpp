@@ -7,6 +7,7 @@
 #include "PROJECT_SETTINGS_MACROS.h"
 #include "CoordinateSystem.h"
 #include "MATH_CONSTANTS_MACROS.h"
+#include <unordered_map>
 #include <cstdio>
 #include "graphviewer.h"
 #include <fstream>
@@ -16,12 +17,12 @@
 using namespace EcoDriving::Linker;
 
 void main(void) {
-	GraphViewer *gv = new GraphViewer(600, 600, true);
+	GraphViewer *gv = new GraphViewer(1280, 720, true);
+	std::unordered_map<size_t, int> referenceTable;
 
 	gv->setBackground("background.jpg");
 
-	gv->createWindow(600, 600);
-
+	gv->createWindow(1280, 720);
 
 	gv->defineVertexColor("blue");
 	gv->defineEdgeColor("black");
@@ -34,10 +35,13 @@ void main(void) {
 
 	EcoDriving::EcoVehicle::ElectricVehicle car(0,0,0,100,1000);
 
+	int d = 0;
 	Graph<EcoDriving::Location::Location> locationGraph;
 	for (auto it = a.locationNodes.begin(); it != a.locationNodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
-		gv->addNode(it->first,it->second.getCoordinates().x, it->second.getCoordinates().y);
+		referenceTable.insert(std::make_pair(it->first, d));
+		gv->addNode(d, it->second.getCoordinates().x * 1000, it->second.getCoordinates().y * 1000);
+		d++;
 	}
 	int c = 0;
 	for (auto it = a.conections.begin(); it != a.conections.end(); ++it) {
@@ -64,23 +68,27 @@ void main(void) {
 
 			double weight = usedBattery;
 			//cout << "Weight:" << weight << endl;
-			gv->addEdge(c, src.getNodeID(), dst.getNodeID(), EdgeType::DIRECTED);
+			gv->addEdge(c, referenceTable[src.getNodeID()], referenceTable[dst.getNodeID()], EdgeType::DIRECTED);
+
+			cout << "Link:" << src.getNodeID() << "," << dst.getNodeID() << endl;
 
 			locationGraph.addEdge(src, dst, weight);
 		}
 	}
+	cout << "Number of Links:" << c << endl;
 
-	locationGraph.dijkstraShortestPath(a.locationNodes.begin()->second);
-	EcoDriving::Location::Location end = (--a.locationNodes.end())->second;
-	vector<EcoDriving::Location::Location> res = locationGraph.getPath(a.locationNodes.begin()->second, end);
+	locationGraph.dijkstraShortestPath(a.locationNodes[2383414260]);
+	EcoDriving::Location::Location str = a.locationNodes[2383414260];
+	EcoDriving::Location::Location end = a.locationNodes[1684844512];
+	vector<EcoDriving::Location::Location> res = locationGraph.getPath(end,str);
 
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
 	}
-	gv->rearrange();
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
 
+	gv->rearrange();
 	getchar();
 	return;
 }

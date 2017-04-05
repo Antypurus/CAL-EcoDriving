@@ -4,7 +4,6 @@
 #ifndef GRAPH_H_
 #define GRAPH_H_
 
-#include <iostream>
 #include <vector>
 #include <queue>
 #include <list>
@@ -248,7 +247,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	int found=0;
-	Vertex<T> *vS=nullptr, *vD=nullptr;
+	Vertex<T> *vS, *vD;
 	while (found!=2 && it!=ite ) {
 		if ( (*it)->info == sourc )
 			{ vS=*it; found++;}
