@@ -83,13 +83,12 @@ void main(void) {
 	EcoDriving::Location::Location str = a.locationNodes[2383414260];
 	EcoDriving::Location::Location end = a.locationNodes[1684844512];
 	vector<EcoDriving::Location::Location> res = locationGraph.getPathToOrigin(str, end);
-	/*
+
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
-	}*/
+	}
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
-
 	gv->rearrange();
 	getchar();
 	return;
