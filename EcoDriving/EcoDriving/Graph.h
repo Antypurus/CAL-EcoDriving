@@ -9,6 +9,7 @@
 #include <list>
 #include <limits>
 #include <cmath>
+#include <iostream>
 using namespace std;
 
 template <class T> class Edge;
@@ -26,6 +27,7 @@ const int INT_INFINITY = INT_MAX;
  */
 template <class T>
 class Vertex {
+public:
 	T info;
 	vector<Edge<T>  > adj;
 	bool visited;
@@ -35,6 +37,7 @@ class Vertex {
 public:
 
 	Vertex(T in);
+	Vertex() {};
 	friend class Graph<T>;
 
 	void addEdge(Vertex<T> *dest, double w);
@@ -181,6 +184,23 @@ public:
 	int edgeCost(int vOrigIndex, int vDestIndex);
 	vector<T> getfloydWarshallPath(const T &origin, const T &dest);
 	void getfloydWarshallPathAux(int index1, int index2, vector<T> & res);
+
+	std::vector<T>getPathToOrigin(const T&start, const T&dest) {
+		Vertex<T>end;
+		Vertex<T>help;
+		std::vector<T> toSend;
+		for (auto it = this->vertexSet.begin(); it != vertexSet.end(); ++it) {
+			if ((*it)->info == dest) {
+				end = *(*it);
+			}
+		}
+		help = *(end.path);
+		while (help.info != start) {
+			toSend.push_back(help.info);
+			help = *(help.path);
+		}
+		return toSend;
+	}
 };
 
 
@@ -247,7 +267,7 @@ bool Graph<T>::addEdge(const T &sourc, const T &dest, double w) {
 	typename vector<Vertex<T>*>::iterator it= vertexSet.begin();
 	typename vector<Vertex<T>*>::iterator ite= vertexSet.end();
 	int found=0;
-	Vertex<T> *vS, *vD;
+	Vertex<T> *vS=nullptr, *vD=nullptr;
 	while (found!=2 && it!=ite ) {
 		if ( (*it)->info == sourc )
 			{ vS=*it; found++;}

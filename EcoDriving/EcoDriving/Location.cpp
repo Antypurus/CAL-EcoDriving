@@ -1,6 +1,7 @@
 #include "Location.h"
 #include"OSMParser.h"
 #include"CoordinateSystem.h"
+#include <iostream>
 
 
 namespace EcoDriving {
@@ -11,6 +12,7 @@ namespace EcoDriving {
 			this->m_Coordinates = new EcoCoordinate::CoordinateSystem(node.getLongitude(), node.getLatitude(), node.getAltitude(), false);
 			this->m_HasRechargeStation = false;
 			this->m_NodeID = node.getNodeID();
+			//std::cout <<"Location"<<this->m_Coordinates->x << std::endl;
 		}
 
 		Location::Location()

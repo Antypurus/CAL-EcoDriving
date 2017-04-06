@@ -22,7 +22,7 @@ namespace EcoDriving {
 
 		CoordinateSystem::CoordinateSystem(double longitude_x, double latitude_y, double altitude_z,const bool Cartesian)
 		{
-			if (Cartesian) {
+			if (!Cartesian) {
 				this->altitude = altitude_z;
 				this->longitue = longitude_x;
 				this->latitude = latitude_y;

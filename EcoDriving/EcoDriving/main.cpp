@@ -40,7 +40,9 @@ void main(void) {
 	for (auto it = a.locationNodes.begin(); it != a.locationNodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
 		referenceTable.insert(std::make_pair(it->first, d));
-		gv->addNode(d, it->second.getCoordinates().x * 1000, it->second.getCoordinates().y * 1000);
+		gv->addNode(d, it->second.getCoordinates().x, it->second.getCoordinates().y);
+		//cout << "X:" << it->second.getCoordinates().x << std::endl;
+		//cout << "Y:" << it->second.getCoordinates().y << std::endl;
 		d++;
 	}
 	int c = 0;
@@ -70,7 +72,7 @@ void main(void) {
 			//cout << "Weight:" << weight << endl;
 			gv->addEdge(c, referenceTable[src.getNodeID()], referenceTable[dst.getNodeID()], EdgeType::DIRECTED);
 
-			cout << "Link:" << src.getNodeID() << "," << dst.getNodeID() << endl;
+			//cout << "Link:" << src.getNodeID() << "," << dst.getNodeID() << endl;
 
 			locationGraph.addEdge(src, dst, weight);
 		}
@@ -80,11 +82,11 @@ void main(void) {
 	locationGraph.dijkstraShortestPath(a.locationNodes[2383414260]);
 	EcoDriving::Location::Location str = a.locationNodes[2383414260];
 	EcoDriving::Location::Location end = a.locationNodes[1684844512];
-	vector<EcoDriving::Location::Location> res = locationGraph.getPath(end,str);
-
+	vector<EcoDriving::Location::Location> res = locationGraph.getPathToOrigin(str, end);
+	/*
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
-	}
+	}*/
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
 

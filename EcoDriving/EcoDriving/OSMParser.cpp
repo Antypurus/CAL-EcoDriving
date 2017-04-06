@@ -126,11 +126,13 @@ namespace EcoDriving {
 					std::getline(helper, help, ';');
 					help2.str(help);
 					help2 >> latitude;
+					//std::cout << "latitude:" << latitude<<endl;
 					help2.clear();
 
 					std::getline(helper, help, ';');
 					help2.str(help);
 					help2 >> longitude;
+					//std::cout << "longitude:" << longitude << endl;
 					help2.clear();
 
 					if (!hasChanged) {
@@ -282,6 +284,7 @@ namespace EcoDriving {
 			conParse.join();
 
 			for (std::unordered_map<size_t, Parsers::Node>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
+				//std::cout << it->second.getLongitude() << endl;
 				locationNodes.insert(std::make_pair(it->second.getNodeID(),EcoDriving::Location::Location((it->second))));
 			}
 
