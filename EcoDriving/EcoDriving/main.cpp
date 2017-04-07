@@ -79,10 +79,21 @@ void main(void) {
 	}
 	cout << "Number of Links:" << c << endl;
 
-	locationGraph.dijkstraShortestPath(a.locationNodes[2383414260]);
-	EcoDriving::Location::Location str = a.locationNodes[2383414260];
-	EcoDriving::Location::Location end = a.locationNodes[1684844512];
+	locationGraph.dijkstraShortestPath(a.locationNodes[2273202419]);
+	EcoDriving::Location::Location str = a.locationNodes[2273202419];
+	EcoDriving::Location::Location end = a.locationNodes[2273202427];
 	vector<EcoDriving::Location::Location> res = locationGraph.getPathToOrigin(str, end);
+	Vertex<EcoDriving::Location::Location> check = *(locationGraph.getVertex(str));
+	std::vector<EcoDriving::Location::Location> conecCount = locationGraph.bfs(&check);
+
+	std::cout << "Size:" << conecCount.size() << std::endl;
+
+	if (conecCount.size() == a.locationNodes.size()) {
+		std::cout << "This Graph Is Connected" << std::endl;
+	}
+	else {
+		std::cout << "This Graph Is Not Connected" << std::endl;
+	}
 
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
