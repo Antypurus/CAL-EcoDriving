@@ -97,6 +97,7 @@ void main(void) {
 
 	for (int i = 0; i < res.size(); i++) {
 		cout << "ID:" << res[i].getNodeID() << endl;
+		gv->setVertexColor(referenceTable[res[i].getNodeID()], "black");
 	}
 
 	std::cout << "Number of Vertexes:" << locationGraph.getNumVertex() << std::endl;
