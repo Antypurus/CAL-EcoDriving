@@ -175,12 +175,12 @@ namespace EcoDriving {
 				}
 			}
 			else {
-				std::cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				std::cout << "@NodeParser:: There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 				file.close();
 				return;
 			}
 			file.close();
-			std::cout << std::endl << "Parsing Of Node Information Is Complete" << std::endl;
+			std::cout << "@NodeParser:: Parsing Of Node Information Is Complete" << std::endl;
 		}
 
 		void WayParser(std::unordered_map<size_t, EcoDriving::Parsers::Way> &wayTable, std::string filename) {
@@ -219,12 +219,12 @@ namespace EcoDriving {
 				}
 			}
 			else {
-				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				cout << "@WayParser:: There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 				file.close();
 				return;
 			}
 			file.close();
-			std::cout << std::endl << "Parsing Of Way Information Is Complete" << std::endl;
+			std::cout << "@WayParser:: Parsing Of Way Information Is Complete" << std::endl;
 		}
 
 		void ConectParser(std::unordered_map<size_t, EcoDriving::Parsers::Conect> &conTable, std::string filename) {
@@ -264,16 +264,16 @@ namespace EcoDriving {
 				}
 			}
 			else {
-				cout << "There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
+				cout << "@ConnectionParser:: There Was An Issue Opening The Requested File | File is :" << filename << std::endl;
 				file.close();
 				return;
 			}
 			file.close();
-			std::cout << std::endl << "Parsing Of Node Connections Is Complete" << std::endl;
+			std::cout << "@ConnectionParser:: Parsing Of Node Connections Is Complete" << std::endl;
 		}
 
 		Linker::Linker() {
-			std::cout << std::endl << "Parsing Started" << std::endl;
+			std::cout << "@ParserManager:: Parsing Started" << std::endl;
 
 			std::thread nodeParse(NodeParser, std::ref(this->nodes), NODE_FILE);
 			std::thread wayParse(WayParser, std::ref(this->ways), WAY_FILE);
@@ -284,14 +284,10 @@ namespace EcoDriving {
 			conParse.join();
 
 			for (std::unordered_map<size_t, Parsers::Node>::iterator it = nodes.begin(); it != nodes.end(); ++it) {
-				//std::cout << it->second.getLongitude() << endl;
 				locationNodes.insert(std::make_pair(it->second.getNodeID(),EcoDriving::Location::Location((it->second))));
 			}
 
-			std::cout << std::endl << "Parsing  Finished" << std::endl;
+			std::cout << "@ParserManager:: Parsing  Finished" << std::endl << std::endl;
 		}
 	}
 }
-
-
-
