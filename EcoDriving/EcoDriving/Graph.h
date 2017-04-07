@@ -202,6 +202,7 @@ public:
 				toSend.push_back(help.info);
 				help = *(help.path);
 			}
+			toSend.push_back(help.info);
 		}
 		return toSend;
 	}
@@ -690,7 +691,7 @@ void Graph<T>::dijkstraShortestPath(const T &s) {
 }
 
 template<class T>
-int Graph<T>::edgeCost(int vOrigIndex, int vDestIndex)
+int Graph<T>::edgeCost(int vOrigIndex, int vDestIndex)//todo
 {
 	if(vertexSet[vOrigIndex] == vertexSet[vDestIndex])
 		return 0;

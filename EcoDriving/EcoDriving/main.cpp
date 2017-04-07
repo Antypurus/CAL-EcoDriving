@@ -55,11 +55,13 @@ void main(void) {
 
 	int d = 0;
 	Graph<EcoDriving::Location::Location> locationGraph;
+	Graph<EcoDriving::Location::Location> reverseGraph;
 	for (auto it = a.locationNodes.begin(); it != a.locationNodes.end(); ++it) {
 		locationGraph.addVertex(it->second);
+		reverseGraph.addVertex(it->second);
 		referenceTable.insert(std::make_pair(it->first, d));
 		referenceTable2.insert(std::make_pair(d, it->first));
-		gv->addNode(d,it->second.getCoordinates().x -minX , it->second.getCoordinates().y -minY);
+		gv->addNode(d, (it->second.getCoordinates().x - minX) * 2, (it->second.getCoordinates().y - minY));
 
 #if DISPLAY_METRICS
 		cout << "@Metrics:: X:" << it->second.getCoordinates().x << std::endl;
@@ -104,6 +106,7 @@ void main(void) {
 #endif
 
 			locationGraph.addEdge(src, dst, weight);
+			reverseGraph.addEdge(dst, src, weight);
 		}
 	}
 
@@ -111,29 +114,38 @@ void main(void) {
 	cout << "@Metrics:: Number of Links:" << c << endl;
 #endif
 
+	gv->rearrange();
+
 	size_t srcID = 2273202419;
 	size_t dstID = 2273202427;
 
-	locationGraph.dijkstraShortestPath(a.locationNodes[srcID]);
-	EcoDriving::Location::Location str = a.locationNodes[srcID];
-	EcoDriving::Location::Location end = a.locationNodes[dstID];
+	cout << "Source ID:";
+	cin >> srcID;
+	cout << "Destination ID:";
+	cin >> dstID;
+
+	locationGraph.dijkstraShortestPath(a.locationNodes[referenceTable2[srcID]]);
+	EcoDriving::Location::Location str = a.locationNodes[referenceTable2[srcID]];
+	EcoDriving::Location::Location end = a.locationNodes[referenceTable2[dstID]];
 	vector<EcoDriving::Location::Location> res = locationGraph.getPathToOrigin(str, end);
 	Vertex<EcoDriving::Location::Location> check = *(locationGraph.getVertex(str));
-	std::vector<EcoDriving::Location::Location> conecCount = locationGraph.bfs(&check);
+	std::vector<EcoDriving::Location::Location> conecCount = locationGraph.bfs(&check);//normal graph list of nodes able to reach
+	Vertex<EcoDriving::Location::Location> check2 = *(locationGraph.getVertex(str));
+	std::vector<EcoDriving::Location::Location> conecCount2 = reverseGraph.bfs(&check2);//reverse graph list of node able to reach
 
 #if DISPLAY_METRICS
 	std::cout << "@Metrics:: Connected Vertexes From Reference Point:" << conecCount.size() << std::endl;
 #endif
 
-	if (conecCount.size() == a.locationNodes.size()) {
-		std::cout << "@GraphInfo:: Conectivity:: This Graph Is Connected" << std::endl;
+	if (conecCount.size() == a.locationNodes.size()&& conecCount2.size() == a.locationNodes.size()) {
+		std::cout << "@GraphInfo:: Conectivity:: This Graph Is Strongly Connected" << std::endl;
 	}
 	else {
 		std::cout << "@GraphInfo:: Conectivity:: This Graph Is Not Connected" << std::endl;
 	}
 
 
-	std::cout << "@GraphInfo:: Path From " << srcID << " To " << dstID << std::endl;
+	std::cout << "@GraphInfo:: Path From " << referenceTable2[srcID] << " To " << referenceTable2[dstID] << std::endl;
 	for (int i = 0; i < res.size(); i++) {
 		cout << "@GraphInfo:: ID:" << res[i].getNodeID() << endl;
 		gv->setVertexColor(referenceTable[res[i].getNodeID()], "black");
@@ -145,6 +157,6 @@ void main(void) {
 #endif
 
 	gv->rearrange();
-	getchar();
+	system("pause");
 	return;
 }
