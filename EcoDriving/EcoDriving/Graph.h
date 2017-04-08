@@ -197,7 +197,7 @@ public:
 		toSend.push_back(end.info);
 		Vertex<T>*smt = end.path;
 		if (smt != nullptr) {
-			help = *(smt);//exception
+			help = *(smt);
 			while (help.info != start) {
 				toSend.push_back(help.info);
 				help = *(help.path);

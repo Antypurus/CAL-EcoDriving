@@ -62,6 +62,10 @@ void main(void) {
 		referenceTable.insert(std::make_pair(it->first, d));
 		referenceTable2.insert(std::make_pair(d, it->first));
 		gv->addNode(d, (it->second.getCoordinates().x - minX) * 2, (it->second.getCoordinates().y - minY));
+		if (it->second.getRecharge()) {
+			gv->setVertexColor(d, "pink");
+			gv->setVertexLabel(d, "Recharge Station | ID:"+to_string(d));
+		}
 
 #if DISPLAY_METRICS
 		cout << "@Metrics:: X:" << it->second.getCoordinates().x << std::endl;
@@ -144,12 +148,19 @@ void main(void) {
 		std::cout << "@GraphInfo:: Conectivity:: This Graph Is Not Connected" << std::endl;
 	}
 
-
 	std::cout << "@GraphInfo:: Path From " << referenceTable2[srcID] << " To " << referenceTable2[dstID] << std::endl;
+
 	for (int i = 0; i < res.size(); i++) {
 		cout << "@GraphInfo:: ID:" << res[i].getNodeID() << endl;
-		gv->setVertexColor(referenceTable[res[i].getNodeID()], "black");
+		gv->setVertexColor(referenceTable[res[i].getNodeID()], "yellow");
+		if (i != res.size()-1) {
+			gv->setVertexLabel(referenceTable[res[i].getNodeID()], "GO HERE");
+		}
+		else {
+			gv->setVertexLabel(referenceTable[res[i].getNodeID()], "START HERE");
+		}
 	}
+
 	std::cout << "@GraphInfo:: Path Finished" << std::endl;
 
 #if DISPLAY_METRICS

@@ -36,6 +36,12 @@ namespace EcoDriving {
 				}
 				return false;
 			}
+			void setRecharge(bool value) {
+				this->m_HasRechargeStation = value;
+			}
+			bool getRecharge() {
+				return this->m_HasRechargeStation;
+			}
 		};
 	}
 }

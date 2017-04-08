@@ -287,6 +287,16 @@ namespace EcoDriving {
 				locationNodes.insert(std::make_pair(it->second.getNodeID(),EcoDriving::Location::Location((it->second))));
 			}
 
+			std::random_device gen;
+			std::mt19937_64 generator(gen());
+
+			for (auto it = locationNodes.begin(); it != locationNodes.end(); ++it) {
+				int a = generator() % 100;
+				if (a <= 5) {
+					it->second.setRecharge(true);
+				}
+			}
+
 			std::cout << "@ParserManager:: Parsing  Finished" << std::endl << std::endl;
 		}
 	}
