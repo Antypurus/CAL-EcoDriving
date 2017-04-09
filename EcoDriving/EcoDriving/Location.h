@@ -42,6 +42,7 @@ namespace EcoDriving {
 			bool getRecharge() {
 				return this->m_HasRechargeStation;
 			}
+			double weightTo(const Location &loc);
 		};
 	}
 }

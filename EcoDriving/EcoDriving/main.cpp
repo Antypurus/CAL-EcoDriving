@@ -150,6 +150,33 @@ void main(void) {
 
 	std::cout << "@GraphInfo:: Path From " << referenceTable2[srcID] << " To " << referenceTable2[dstID] << std::endl;
 
+	std::vector<double>weights;
+	bool change = false;
+	double counter = 0;
+
+	while (change) {//this code part is disabled due to exception that we cant resolve
+		for (int i = 0; i < res.size(); ++i) {
+			double dist = res[i].weightTo(res[i + 1]);
+			weights.push_back(dist);
+		}
+
+		for (int i = 0; i < weights.size(); ++i) {
+			counter += weights[i];
+			if (counter > car.getBattery()) {
+				counter = 0;
+				if (!res[i + 1].getRecharge()) {
+					change = true;
+					locationGraph.removeEdge(res[i], res[i + 1]);
+				}
+				else {
+					change = false;
+				}
+			}
+		}
+		locationGraph.dijkstraShortestPath(str);
+		res = locationGraph.getPathToOrigin(str, end);
+	}//disabled
+
 	for (int i = 0; i < res.size(); i++) {
 		cout << "@GraphInfo:: ID:" << res[i].getNodeID() << endl;
 		gv->setVertexColor(referenceTable[res[i].getNodeID()], "yellow");

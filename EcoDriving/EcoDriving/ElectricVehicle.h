@@ -29,6 +29,9 @@ namespace EcoDriving {
 			void moveTo(EcoCoordinate::CoordinateSystem placeToMove);
 			double timeTo(EcoCoordinate::CoordinateSystem placeToMove);
 			double getVelocity()const { return this->AverageVelocity; }
+			double getBattery()const {
+				return this->BatteryCapacity;
+			}
 		};
 
 	}

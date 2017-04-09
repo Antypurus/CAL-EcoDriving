@@ -2,6 +2,7 @@
 #include"OSMParser.h"
 #include"CoordinateSystem.h"
 #include <iostream>
+#include "MATH_CONSTANTS_MACROS.h"
 
 
 namespace EcoDriving {
@@ -54,6 +55,20 @@ namespace EcoDriving {
 		void Location::operator=(const Location &loc) {
 			this->m_Coordinates = &(loc.getCoordinates());
 			this->m_NodeID = loc.getNodeID();
+		}
+
+		double Location::weightTo(const Location &loc) {
+			double dist = this->getCoordinates().distanceCalculation(loc.getCoordinates());
+			if (this->getCoordinates().z > loc.getCoordinates().z) {
+				return (dist - dist*DOWN_HILL_REFENERATION);
+			}
+			else if (this->getCoordinates().z < loc.getCoordinates().z) {
+				return dist*UP_HILL_ENERGY_COST;
+			}
+			else {
+				return dist*FLAT_ENERGY_COST;
+			}
+			return dist;
 		}
 	}
 }
