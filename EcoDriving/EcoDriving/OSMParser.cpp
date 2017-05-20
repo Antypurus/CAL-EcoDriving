@@ -188,6 +188,8 @@ namespace EcoDriving {
 			string help;
 			if (file.is_open()) {
 				while (getline(file,help)) {
+					static int c = 0;
+
 					string name;
 					size_t wayID;
 					bool isTwoWay = false;
@@ -202,6 +204,10 @@ namespace EcoDriving {
 					help2.clear();
 
 					getline(help1, name, ';');
+
+					if (name == "") {
+						name = "Test " + to_string(c++);
+					}
 
 					getline(help1, help, ';');
 					if (help == "True") {

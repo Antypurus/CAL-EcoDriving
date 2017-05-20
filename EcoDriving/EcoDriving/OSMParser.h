@@ -31,6 +31,7 @@ namespace EcoDriving {
 			bool twoWay = false;
 		public:
 			Way(size_t wayID, std::string name, bool isTwoWay);
+			Way():name(""),wayID(0),twoWay(false){}
 			std::string getName()const;
 			size_t getWayID()const;
 			bool isTwoWay()const;
