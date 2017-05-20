@@ -138,6 +138,48 @@ void exactSearchPoints(string pattern, unordered_map<size_t, EcoDriving::Locatio
 	return;
 }
 
+void rechargePointQuerryMenu(unordered_map<size_t, EcoDriving::Location::Location> &rechargePoints) {
+	int op = 0;
+	while (op == 0) {
+		system("cls");
+
+		cout << "1 - List All Recharge Points" << endl;
+		cout << "2 - Exact Search For Recharge Points" << endl;
+		cout << "3 - Aproximate Search For Recharge Points" << endl;
+		cout << "4 - Exit" << endl;
+
+		cout << "Option:";
+		cin >> op;
+
+		switch (op)
+		{
+		case(1):
+		{
+			op = 0;
+			break;
+		}
+		case(2):
+		{
+			op = 0;
+			break;
+		}
+		case(3):
+		{
+			op = 0;
+			break;
+		}
+		case(4):
+		{
+			return;
+		}
+		default:
+			op = 0;
+			break;
+		}
+	}
+	return;
+}
+
 using namespace EcoDriving::Linker;
 
 void main(void) {
@@ -366,6 +408,7 @@ void main(void) {
 			break;
 		}
 		case(2):
+			rechargePointQuerryMenu(rechargePoints);
 			op = 0;
 			break;
 		case(3):
