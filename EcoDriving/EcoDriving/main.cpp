@@ -110,7 +110,7 @@ void aproximateSearchPoints(string pattern, unordered_map<size_t, EcoDriving::Lo
 	system("cls");
 	bool found = false;
 	for (auto it = rechargePoints.begin();it != rechargePoints.end();++it) {
-		if (aproximateSearch(it->second.getName(), pattern) < 5) {
+		if (aproximateSearch(it->second.getName(), pattern) < 3) {
 			found = true;
 			cout << "Node Name:" << it->second.getName() << "\tNode ID:" << it->first << endl;
 		}
@@ -155,16 +155,33 @@ void rechargePointQuerryMenu(unordered_map<size_t, EcoDriving::Location::Locatio
 		{
 		case(1):
 		{
+			system("cls");
+
+			for (auto it = rechargePoints.begin();it != rechargePoints.end();++it) {
+				cout << "Node Name:" << it->second.getName() << "\tNode ID:" << it->first << endl;
+			}
+
+			system("pause");
 			op = 0;
 			break;
 		}
 		case(2):
 		{
+			string pattern = "";
+			cout << "Pattern:";
+			cin.ignore();
+			getline(cin, pattern);
+			exactSearchPoints(pattern, rechargePoints);
 			op = 0;
 			break;
 		}
 		case(3):
 		{
+			string pattern = "";
+			cout << "Pattern:";
+			cin.ignore();
+			getline(cin, pattern);
+			aproximateSearchPoints(pattern, rechargePoints);
 			op = 0;
 			break;
 		}
