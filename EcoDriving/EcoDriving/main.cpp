@@ -13,8 +13,20 @@
 #include <fstream>
 #include <iostream>
 #include <sstream>
+#include <queue>
 
 using namespace std;
+
+struct Order {
+	int editDist=INT_MAX;
+	string list = "";
+	bool operator<(const Order& or )const {
+		if (this->editDist > or .editDist) {
+			return true;
+		}
+		return false;
+	}
+};
 
 void pre_kmp(string pattern, vector<int> & prefix)
 {
@@ -108,15 +120,26 @@ int aproximateSearch(string text, string pattern) {
 
 void aproximateSearchPoints(string pattern, unordered_map<size_t, EcoDriving::Location::Location> &rechargePoints) {
 	system("cls");
+	priority_queue<Order>show;
 	bool found = false;
 	for (auto it = rechargePoints.begin();it != rechargePoints.end();++it) {
-		if (aproximateSearch(it->second.getName(), pattern) < 3) {
+		int editDist = INT_MAX;
+		if ((editDist=aproximateSearch(it->second.getName(), pattern)) < 3) {
 			found = true;
-			cout << "Node Name:" << it->second.getName() << "\tNode ID:" << it->first << endl;
+			Order or ;
+			or.editDist = editDist;
+			string send = "Node Name:" + it->second.getName() + "\tNode ID:" + to_string(it->first)+"\t Edit Distance:"+to_string(editDist);
+			or .list = send;
+			show.push(or);
+			editDist = INT_MAX;
 		}
 	}
 	if (!found) {
 		printf("Unable To Find A Recharge Point With That Name!\n");
+	}
+	while (show.size() != 0) {
+		cout << show.top().list << std::endl;
+		show.pop();
 	}
 	system("pause");
 	return;
