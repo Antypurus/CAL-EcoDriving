@@ -1,5 +1,5 @@
 # CAL-EcoDriving
 
-[![Build status](https://ci.appveyor.com/api/projects/status/jdohvn94kc0ar75b?svg=true)](https://ci.appveyor.com/project/TiagoJoseMagalhaes/cal-ecodriving)
+[![Build status](https://ci.appveyor.com/api/projects/status/jdohvn94kc0ar75b?svg=true)](https://ci.appveyor.com/project/TiagoJoseMagalhaes/cal-ecodriving) -- Failing due to repo being private
 
-Conception and and analysis of algorithms Class Project Part 1
+This project is a school work on graphs and string matching
